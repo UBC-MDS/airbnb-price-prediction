@@ -12,21 +12,20 @@ Options:
 
 import pandas as pd
 import numpy as np
-from io import BytesIO
-from zipfile import ZipFile
-from urllib.request import urlopen
+import requests
+import os
 from docopt import docopt
 
 opt = docopt(__doc__)
 
 def main(data_url, file_path):
-    ## to run this: python data.py --data_url 'https://archive.ics.uci.edu/ml/machine-learning-databases/00232/RCdata.zip' --file_path ../data
+    ## to run this: python data.py --data_url 'http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz' --file_path ../data
 
-    # read in data
-    resp = urlopen(data_url)
-    zf = ZipFile(BytesIO(resp.read()))
-
-    zf.extractall(file_path)
+    filename = os.path.join(file_path, data_url.split("/")[-1])
+    with open(filename, "wb") as f:
+        r = requests.get(data_url)
+        f.write(r.content)
+    
 
 if __name__ == "__main__":
     main(opt["--data_url"], opt["--file_path"])
