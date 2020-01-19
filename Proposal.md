@@ -10,8 +10,9 @@ Which hyperparameters should we be optimizing in the machine learning model we c
 
 We will analyze the data using several methods that all involve using categorical/continous features to predict a continuous variable (price), such as KNN, SVM, linear regression, or random forest regression. In particular, we are aware that linear regressors are easier to interpret.
 
-One exploratory data analysis table we will create is a table containing all the features we are interested in predicting the continuous variable price.
+One exploratory data analysis table we will create is a table for total count of Airbnb listings per price category in a neighbourhood. 
+Another is a table containing all the features we are interested in predicting the continuous variable price. 
 
-One exploratory data analysis figure we will create is a heatmap, which is a correlation matrix showing the relationship between feature varaibles and individual feature variables with the predictor price.
+One exploratory data analysis figure we will create is a figure showing the total number of Airbnb's across neighbourhoods in Vancouver per price category. Another is a heatmap, which is a correlation matrix showing the relationship between feature varaibles and individual feature variables with the predictor price.
 
 We will share the results of our analysis using the suggested tables and figures above. 
