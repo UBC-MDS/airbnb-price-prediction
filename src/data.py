@@ -19,7 +19,7 @@ from docopt import docopt
 opt = docopt(__doc__)
 
 def main(data_url, file_path):
-    ## to run this: python data.py --data_url 'http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz' --file_path ../data
+    ## to run this: python data.py --data_url 'http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz' --file_path data
 
     filename = os.path.join(file_path, data_url.split("/")[-1])
     with open(filename, "wb") as f:
