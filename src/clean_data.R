@@ -7,7 +7,7 @@ Usage: clean_data.R --data_path=<data_path> --file_path_clean=<file_path_clean>
 
 Options:
 --data_path=<data_path> path where data can be found
---file_path_train=<file_path_train>  Path (including filename) to save the cleaned csv file.
+--file_path_clean=<file_path_clean>  Path (including filename) to save the cleaned train and test csv file.
 " -> doc
 
 # to run file: Rscript src/clean_data.R --data_path data/listings.csv.gz --file_path_clean data/data_cleaned.csv
@@ -31,10 +31,19 @@ main <- function(data_path, file_path_clean){
   data_selected <- data[,selected] %>%
     mutate(price = as.numeric(gsub('[$,]', '', price)),
            host_response_rate = as.numeric(gsub('[%]', '', host_response_rate))/100)
+
+  #Split the data
+  set.seed(522)
+  
+  n = nrow(data_selected)
+  trainIndex = sample(1:n, size = round(0.7*n), replace=FALSE)
+  train = data_selected[trainIndex,]
+  test = data_selected[-trainIndex,]
   
   #Export data
-  write.csv(data_selected, file = file_path_clean, row.names = FALSE)
+  write.csv(train, file = paste0(file_path_clean, "/train_data.csv"), row.names = FALSE)
+  write.csv(train, file = paste0(file_path_clean, "/test_data.csv"), row.names = FALSE)
 }
 
-main(opt$data_path, opt$file_path_clean)
+main(opt[["--data_path"]],opt[["--file_path_clean"]])
 
