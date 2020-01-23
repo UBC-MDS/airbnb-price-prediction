@@ -1,4 +1,4 @@
-# author: Trevor Kwan, Polina Romanchenko, Monique Wong
+ # author: Trevor Kwan, Polina Romanchenko, Monique Wong
 # date: 2020-01-21
 #
 "This script wrangles input data into format, ready for machine learning.
@@ -11,6 +11,7 @@ Options:
 --file_path_test=<file_path_test>  Path (including filename) to save the test set csv file.
 " -> doc
 
+# to run file: Rscript src/data_wrangling.R --data_path data/listings.csv.gz --file_path_train data/training.csv --file_path_test data/test.csv
 
 library(tidyverse, quietly = TRUE)
 library(docopt, quietly = TRUE)
