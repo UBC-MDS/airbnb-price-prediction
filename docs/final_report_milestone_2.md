@@ -1,23 +1,37 @@
-Word count report
+Milestone 2 Final Report
 ================
+
+  - [Introduction](#introduction)
+  - [Dataset and Source](#dataset-and-source)
+  - [Findings and Results](#findings-and-results)
+  - [Interpretation of Results](#interpretation-of-results)
+  - [Critique of the Analysis](#critique-of-the-analysis)
+  - [Statement of Future Directions](#statement-of-future-directions)
+  - [References](#references)
 
 ## Introduction
 
 Our research question is: “At what nightly price should we list our
-Vancouver AirBnB?” This research question is predictive. Given the
-dataset, we want to build a machine learning model that can predict an
-appropriate nightly price for a new AirBnB property. An appropriate
-price would be one that is competitive compared to existing listings
-given the property, host and booking specific characteristics. Examples
-of these characteristics are below:
+Vancouver AirBnB?”
+
+This research question is predictive. Given the dataset, we want to
+build a machine learning model that can predict an appropriate nightly
+price for a new AirBnB property. An appropriate price would be one that
+is competitive compared to existing listings given the property, host
+and booking specific characteristics.
+
+Examples of these characteristics are below:
 
 Property-related characteristics: property type, the neighborhood,
 number of people who can be accommodated, number of bathrooms, bedrooms
-and beds Host-related characteristics: host response rate to requests,
-whether the host is a superhost, whether the host identity has been
-verified Booking-related characteristics: whether the property can be
-instantly booked, the cancellation policy To answer this overarching
-question, we would need to understand the following:
+and beds.
+
+Host-related characteristics: host response rate to requests, whether
+the host is a superhost, whether the host identity has been verified.
+
+Booking-related characteristics: whether the property can be instantly
+booked, the cancellation policy To answer this overarching question, we
+would need to understand the following:
 
 Which features from the raw dataset would be most predictive of nightly
 price? Which machine learning model at which hyperparameter settings can

@@ -3,7 +3,6 @@ title: " Milestone 2 Final Report"
 output: 
   github_document:
     toc: True
-bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
