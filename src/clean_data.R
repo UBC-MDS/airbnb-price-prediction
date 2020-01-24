@@ -10,7 +10,7 @@ Options:
 --file_path_clean=<file_path_clean>  Path (including filename) to save the cleaned train and test csv file.
 " -> doc
 
-# to run file: Rscript src/clean_data.R --data_path data/listings.csv.gz --file_path_clean data/data_cleaned.csv
+# to run file: Rscript src/clean_data.R --data_path data/listings.csv.gz --file_path_clean data
 
 library(tidyverse, quietly = TRUE)
 library(docopt, quietly = TRUE)
