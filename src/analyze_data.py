@@ -1,4 +1,4 @@
-# author: Trevor Kwan, Polina Romanchenko, Monique Wong
+# author: Monique Wong, Polina Romanchenko, Trevor Kwan
 # date: January 25, 2020
 
 '''This script performs machine learning analysis and outputs figures used in analysis
@@ -9,6 +9,7 @@ Options:
 --training_file_path=<training_file_path> file path to training set
 --test_file_path=<test_file_path> file path to test set
 --output_file_path=<file_path>  path to save output
+
 '''
 
 import numpy as np
@@ -49,8 +50,19 @@ def main(training_file_path, test_file_path, output_file_path):
   fit_and_plot_best_model(X_train_p, y_train, X_test_p, y_test, output_file_path)
 
 # supporting functions
+
 def read_and_split(training_file_path, test_file_path):
-  """add docstring"""
+  """ This function reads in test and train data from the input paths and prepares features and target.
+  
+  Arguments:
+  ---------------
+  training_file_path -- str
+    input path to the file with traing data
+  
+  test_file_path -- str
+    input path to the file with test data
+  
+  """
   train = pd.read_csv(training_file_path)
   test = pd.read_csv(test_file_path)
 
@@ -63,7 +75,24 @@ def read_and_split(training_file_path, test_file_path):
   return X_train, y_train, X_test, y_test
   
 def preprocess_features(X_train, X_test):
-  """add docstring"""
+  """
+  This function encodes categorical and numeric features, handles missing data  and outputs prossesed 
+  dataframes for future models to use.
+  Categorical features handeled with OneHotEncoder and missing data points filled with category "missing".
+  Numerical features scaled with StandartScaler and missing data points are filled with median values.
+  
+  
+  Arguments:
+  ---------------
+    X_train -- pd.DataFrame
+      training set containing all features
+    
+    X_test -- pd.DataFrame
+      test set containing all features
+  
+  """
+  
+  
   # Identify numeric and categorical features
   numeric_features = ['host_response_rate', 'accommodates', 'bathrooms', 'bedrooms', 'beds']
 
@@ -95,7 +124,22 @@ def preprocess_features(X_train, X_test):
   return X_train_p, X_test_p
 
 def test_baseline_models(X_train_p, y_train, output_file_path):
-  """add docstring"""
+  """
+  This function makes a subset of train dataset, trains variety of models, outputs time usage, MSE for train 
+  and validation set results to a csv file.
+  
+  Arguments:
+  ---------------
+    X_train_p -- pd.DataFrame
+      train set with encoded and scaled features(output of preprocess_features function)
+    
+    y_train -- pd.DataFrame
+      train set containing target values
+    
+    output_file_path -- str
+      path for desired output folder
+  
+  """
   X_train_subset, X_valid, y_train_subset, y_valid = train_test_split(X_train_p, y_train,test_size = 0.2,random_state = 123)
   
 #  y_train_subset = np.array(y_train_subset)
@@ -127,7 +171,18 @@ def test_baseline_models(X_train_p, y_train, output_file_path):
   
 
 def hyperparameter_search(X_train_p, y_train):
-  """add docstring"""
+  """
+  This function uses random search to tune hyperparameters for 2 best performing models KNN and RBF SVR.
+  
+  Arguments:
+  ---------------
+    X_train_p -- pd.DataFrame
+      train set with encoded and scaled features(output of preprocess_features function)
+    
+    y_train -- pd.DataFrame
+      train set containing target values  
+  
+  """
   # for svr
   svr = SVR(kernel='rbf')
   param_grid = {
@@ -149,6 +204,35 @@ def hyperparameter_search(X_train_p, y_train):
   return random_search_svr, random_search_knn
 
 def test_final_models(random_search_svr, random_search_knn, X_train_subset, X_valid, y_train_subset, y_valid, output_file_path):
+  """
+  This function tests models with optimized hyperparameters and outputs time usage, MSE for train 
+  and validation set results to a csv file.
+  
+  Arguments:
+  ---------------
+    random_search_svr -- sklearn.model_selection._search.RandomizedSearchCV
+      optimized RBF SVR model
+      
+    random_search_knn -- sklearn.model_selection._search.RandomizedSearchCV
+      optimized KNN model
+    
+    X_train_subset: pd.DataFrame
+      subset of X_train_p with encoded and scaled features used for fitting models
+      
+    X_valid : pd.DataFrame
+      subset of X_train_p with encoded and scaled features used for obtaining validation error
+      
+    y_train_subset : pd.DataFrame
+      subset of y_train with target values
+      
+    y_valid : pd.DataFrame
+      subset of y_train with target values
+      
+    output_file_path -- str
+      path for desired output folder    
+  """
+  
+  
   svr_gamma = random_search_svr.best_params_['gamma']
   knn_weights = random_search_knn.best_params_['weights']
   knn_neighbors = random_search_knn.best_params_['n_neighbors']
@@ -176,7 +260,27 @@ def test_final_models(random_search_svr, random_search_knn, X_train_subset, X_va
   best_models_df.to_csv(os.path.join(output_file_path, 'optimized_results.csv'))
   
 def fit_and_plot_best_model(X_train_p, y_train, X_test_p, y_test, output_file_path):
-  """add docstring"""
+  """
+  This function computes residuals of the best performing model and outputs a chart with true Airbnb cost in relation 
+  to residuals.  
+  
+  Arguments:
+  ---------------
+    X_train_p -- pd.DataFrame
+      train set with encoded and scaled features(output of preprocess_features function)
+    
+    y_train -- pd.DataFrame
+      train set containing target values  
+      
+    X_test_p -- pd.DataFrame
+      test set with encoded and scaled features(output of preprocess_features function)
+
+    y_test -- pd.DataFrame
+      test set containing target values
+      
+    output_file_path -- str
+      path for desired output folder    
+  """
   lr = LinearRegression()
   lr.fit(X_train_p, y_train)
   y_train_pred = lr.predict(X_train_p)
