@@ -305,4 +305,10 @@ def fit_and_plot_best_model(X_train_p, y_train, X_test_p, y_test, output_file_pa
 
 if __name__ == "__main__":
   main(opt["--training_file_path"], opt["--test_file_path"], opt["--output_file_path"])
-  
+
+# test function
+def test_function(output_file_path):
+    assert check_file(output_file_path), "File wasn't downloaded."
+
+if __name__ == "__main__":
+  main(opt["--training_file_path"], opt["--test_file_path"], opt["--output_file_path"])
