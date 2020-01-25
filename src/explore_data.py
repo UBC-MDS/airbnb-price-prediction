@@ -5,7 +5,7 @@
 variation by neighborhoods and property type for Airbnb properties in Vancouver area. 
 Output is used for creating of the final report. 
 
-Usage: scr/viz_script.py --data_path=<data_path> --file_path=<file_path>
+Usage: src/explore_data.py --data_path=<data_path> --file_path=<file_path>
 
 Options:
 
@@ -25,7 +25,6 @@ from selenium import webdriver
 opt = docopt(__doc__)
 
 def main(data_path, file_path):
-# to run this: python vz_report.py --data_path=<your_data_location with name> --file_path=<name of the folder>
 
     data = pd.read_csv(f"{data_path}", index_col=0)
 

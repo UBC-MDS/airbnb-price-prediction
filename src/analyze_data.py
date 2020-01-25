@@ -142,8 +142,6 @@ def test_baseline_models(X_train_p, y_train, output_file_path):
   """
   X_train_subset, X_valid, y_train_subset, y_valid = train_test_split(X_train_p, y_train,test_size = 0.2,random_state = 123)
   
-#  y_train_subset = np.array(y_train_subset)
-  
   results_dict = {}
 
   models = {
