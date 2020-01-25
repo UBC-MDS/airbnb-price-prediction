@@ -206,20 +206,24 @@ were to use this model.
 ### Future directions
 
 There are several ways to continue to improve our model performance that
-we list below: 1) **Feature engineering:** We selected a subset of
-features from a large dataset to train our model on based on our
-knowledge of AirBnB. Interviewing AirBnB hosts and frequent guests could
-reveal other important features that impact pricing. For instance,
-interactions between features (e.g., a property that accommodates many
-people in downtown Vancouver would be valued compared to one in the
-suburbs) could significantly improve the performance of the model.
-Engineering our features to group neighborhoods and property types that
-behave similarly but have few data points could also improve the
-performance of these edge cases. 2) **Fitting more complex linear
-models:** Our results suggest a non-linear relationship between price
-and our features. We can explore improving model performance by assuming
-different model distributions that better reflect the long tail of
-higher priced properties.
+we list below:
+
+1)  **Feature engineering:** We selected a subset of features from a
+    large dataset to train our model on based on our knowledge of
+    AirBnB. Interviewing AirBnB hosts and frequent guests could reveal
+    other important features that impact pricing. For instance,
+    interactions between features (e.g., a property that accommodates
+    many people in downtown Vancouver would be valued compared to one in
+    the suburbs) could significantly improve the performance of the
+    model. Engineering our features to group neighborhoods and property
+    types that behave similarly but have few data points could also
+    improve the performance of these edge cases.
+
+2)  **Fitting more complex linear models:** Our results suggest a
+    non-linear relationship between price and our features. We can
+    explore improving model performance by assuming different model
+    distributions that better reflect the long tail of higher priced
+    properties.
 
 Before our model is deployed for use, we also suggest pressure testing
 our model against a range of input values to identify the types of
