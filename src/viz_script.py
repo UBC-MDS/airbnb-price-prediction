@@ -1,8 +1,9 @@
-# author: Trevor Kwan, Polina Romanchenko, Monique Wong
-# date: 2020-01-18
+# author: Monique Wong, Polina Romanchenko, Trevor Kwan
+# date: 2020-01-23
 
-'''This script downloads Restaurant & consumer data Data Set from UCI Machine Learning Repository
-
+'''This script creates visualisations regarding the distribution of prices, nightly price 
+variation by neighborhoods and property type for Airbnb properties in Vancouver area. 
+Output is used for creating of the final report. 
 
 Usage: scr/viz_script.py --data_path=<data_path> --file_path=<file_path>
 
@@ -10,7 +11,7 @@ Options:
 
 --data_path=<data_path> name of data file that should be fetched
   
---file_path=<file_path>  name of the folder, where you want plots to be saved 
+--file_path=<file_path>  name of the folder, where you want visualisations to be saved 
 
 '''
 import numpy as np

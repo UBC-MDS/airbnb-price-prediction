@@ -1,7 +1,7 @@
-# author: Trevor Kwan, Polina Romanchenko, Monique Wong
+# author: Monique Wong, Polina Romanchenko, Trevor Kwan
 # date: 2020-01-18
 
-'''This script downloads Restaurant & consumer data Data Set from UCI Machine Learning Repository
+'''This script downloads open data from an input URL. And saves it in a specified directory.  
 
 Usage: data.py --data_url=<data_url> --file_path=<file_path> 
 
@@ -25,7 +25,10 @@ def main(data_url, file_path):
     with open(filename, "wb") as f:
         r = requests.get(data_url)
         f.write(r.content)
-    
+        
+#Check if the file was created
+def test_function(file_path):
+    assert check_file(file_path), "File wasn't downloaded."
 
 if __name__ == "__main__":
     main(opt["--data_url"], opt["--file_path"])
