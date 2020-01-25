@@ -1,44 +1,61 @@
 Milestone 2 Final Report
 ================
 
-  - [Introduction](#introduction)
-  - [Dataset and Source](#dataset-and-source)
-  - [Analysis](#analysis)
-  - [Results and Discussion](#results-and-discussion)
-      - [Exploratory Data Analysis](#exploratory-data-analysis)
-      - [Machine Learning Analysis](#machine-learning-analysis)
-  - [References](#references)
+## Summary
+
+In this project, we build a predictive model to help new AirBnB hosts
+set the nightly price of their Vancouver AirBnB. Our predictive model
+predicts the market price of an AirBnb given the property, host and
+booking characteristics which we believe is given the the optimal price
+for both the host and AirBnB guests.
+
+At this stage, we have trained a variety of machine learning models
+based on property-, host- and book-related characteristics of existing
+Vancouver AirBnBs. Examples of characteristics include property type,
+neighborhood, the number of people who can be accommodated, the ability
+to instant book the property, the booking’s cancellation policy and the
+responsiveness of the host.
+
+Surprisingly, our linear regression predictor exceeded the performance
+of more complex machine learning models that were evaluated (e.g.,
+random forest regressor). This current model, however, tends to
+consistently overestimate the price of AirBnB’s below $200/night and
+underestimate the price of AirBnB’s above $300/night. Further work
+should involve feature engineering to model interactions between
+features (e.g., neighborhood and property type) as well as fitting more
+complex linear models (e.g., that better model pricing behaviour above
+$300/night).
 
 ## Introduction
 
-Our research question is: “At what nightly price should we list our
-Vancouver AirBnB?”
+Becoming an AirBnB host is becoming a popular way to allow property
+owners to run a small business that can supplement their income and help
+with mortgage payments in an expensive housing market like Vancouver.
+One of the key decisions that an AirBnB host has to make is setting the
+price for the nightly rate of their property.
 
-This research question is predictive. Given the dataset, we want to
-build a machine learning model that can predict an appropriate nightly
-price for a new AirBnB property. An appropriate price would be one that
-is competitive compared to existing listings given the property, host
-and booking specific characteristics.
+The AirBnB booking process is like any effective marketplace. Hosts need
+to set a competitive and fair rate for the use of their property. Guests
+will compare the quality of the property and the overall booking
+experience as well as the price against alternatives. A tool that
+predicts the market price of a property that a host intends to list will
+inform a host’s pricing decision.
 
-Examples of these characteristics are below:
+This project intends to build a predictive machine learning model to
+help new AirBnB hosts set the nightly price of their Vancouver AirBnB.
+The following characteristics will be used in the machine learning
+model: - **Property-related characteristics**: property type, the
+neighborhood, number of people who can be accommodated, number of
+bathrooms, bedrooms and beds. - **Host-related characteristics**: host
+response rate to requests, whether the host is a superhost, whether the
+host identity has been verified. - **Booking-related characteristics**:
+whether the property can be instantly booked, the cancellation policy To
+answer this overarching question, we would need to understand the
+following:
 
-Property-related characteristics: property type, the neighborhood,
-number of people who can be accommodated, number of bathrooms, bedrooms
-and beds.
+## Methods
 
-Host-related characteristics: host response rate to requests, whether
-the host is a superhost, whether the host identity has been verified.
-
-Booking-related characteristics: whether the property can be instantly
-booked, the cancellation policy To answer this overarching question, we
-would need to understand the following:
-
-Which features from the raw dataset would be most predictive of nightly
-price? Which machine learning model at which hyperparameter settings can
-best predict nightly price? Under what range of parameter values (e.g.,
-charactistics of properties) would our model perform reliably?
-
-## Dataset and Source
+### Dataset and Source
 
 We have chosen a dataset that outlines Vancouver AirBnB listings. The
 dataset can be found [here](http://insideairbnb.com/get-the-data.html)
@@ -47,50 +64,32 @@ the dataset is
 [here](http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz).
 Data were compiled November 9 2019.
 
-## Analysis
+### Analysis
 
 Our research question requires us to build a model that predicts a
 continuous variable (price) based on property-, host- and
 booking-related characteristics which a combination of categorical and
 continuous variables. Types of models that would be appropriate for this
-task include KNN regressor, SVM regressor, linear regression, and random
+task include linear regression, KNN regressor, SVM regressor, and random
 forest regressor.
 
-Specifically, the steps we have to take are as follows:
+In this project, we want to identify a model that is, relatively
+speaking, more accurate, less computationally intensive and easily
+interpretable. Accuracy, especially for a range of property types, is
+important so that hosts can rely on this model. Less computationally
+intensive models will also be favoured so that the model can be updated
+frequently based on changing AirBnB data. Being able to interpret the
+model parameters would be helpful since it would be helpful for hosts to
+be able to understand how the market price of their property would
+change if they changed features that were within their control (e.g.,
+relax the cancellation policy).
 
-1.  **Understand and pre-process the data**: We want to understand our
-    dataset better by understanding the composition of AirBnB listings
-    in our dataset. We will have to identify strategies to address
-    missing values as well as select and/or engineer features that would
-    improve the robustness of the model we will develop.
-
-2.  **Select and test baseline models**: We can begin by trying a wide
-    range of machine learning models such as those mentioned above. We
-    can shortlist those we will do hyperparameter optimization on based
-    on computational time and preliminary scoring (e.g., MSE). We will
-    select models that are quick to run and have high scores.
-
-3.  **Tune the hyperparameters for a subset of models**: We can optimize
-    the hyperparameters for the shortlisted models from the previous
-    step. We plan to optimize hyperparameters for the shortlisted models
-    using RandomizedSearchCV, which implements a fit and score method
-    and the parameters of the estimator are optimized by cross-validated
-    search over parameter settings. Compared to GridSearchCV,
-    RandomizedSearchCV does not try all out parameter values and selects
-    only random combinations to train. We chose to implement
-    RandomizedSearchCV because it allows for satisfactory hyperparameter
-    selection while minmizing the runtime. After optimizing
-    hyperparamters of these shortlisted models, we compared the
-    optimized models with each other in terms of time and accuracy.
-
-4.  **Select model with the best performance**: The model we choose will
-    be based on a combination of accuracy, computational intensiveness
-    and interpretability. And finally, we will compute the residuals of
-    the best performing model, showing the differences between the best
-    model’s price predictions and the actual price values. We will plot
-    these residuals on the Y-axis and their corresponding prices on the
-    X-axis, showing the model’s accuracy at predicting at each given
-    price in the range 0$ to 800$.
+Our methodology evaluates the models suggested above for accuracy,
+computational intensity and interpretability. We will train 4 models
+(linear regression, KNN regressor, SVM regressor, and random forest
+regressor) to shortlist 2-3 that we will tune hyperparameters for. The
+tuned models will be compared against each other before deciding on one
+final model.
 
 The R and Python programming languages (R Core Team 2019; Van Rossum and
 Drake 2009) and the following R and Python packages were used to perform
@@ -102,72 +101,80 @@ docopt (de Jonge 2018), tidyverse (Wickham 2017), testthat (Wickham
 
 ## Results and Discussion
 
-###### Exploratory Data Analysis
+### Exploring our data
 
-We first conducted exploratory data analysis to understand the
-relationships between airbnb price, number of properties listed with
-those prices, neighbourhood region of airbnb, and property type or
-airbnb. Shown below are several figures illustrating these associations.
+To begin our analysis, we wanted to understand a) the range and
+distribution of prices represented in our dataset and b) potential
+issues with sparse data for neighborhood and property type categorical
+variables.
 
-![alt tag](../output/number_of_properties_by_price.png)
+#### Distribution of AirBnB nightly prices in our dataset
 
-Majority of properties were priced between $50 to $200 per night. There
-is a long right tail to this distribution indicating that there were few
-properties at high nightly prices. As we create a model that suggests /
-predicts a price of a new AirBnB property, we have to be conscious of
-the fact that the training set has had more data to learn from prices
-towards the centre of the distribution.
+<img src="../output/number_of_properties_by_price.png" title="Figure 1: Number of properties by nightly price" alt="Figure 1: Number of properties by nightly price" width="60%" height="60%" />
 
-*Understanding Price by Neighborhood* ![alt
-tag](../output/neighborhoods.png)
+We can see that majority of properties are priced between $50 to $200
+per night. There is a long right tail to this distribution reflecting
+fewer properties listed at high prices. As we create a model that
+suggests / predicts a price of a new AirBnB property, we have to be
+conscious of the fact that the training set has had more data to learn
+from prices towards the centre of the
+distribution.
 
-To understand the relationship between nightly price and neighborhoods,
-we analyze the distribution of the number of properties by neighborhood
-and price point. Some neighborhoods do not have any properties listed
-above a certain price point. For instance, Strathcona and Killarney have
-no properties listed above 350/night. Most neighborhoods do not have any
-properties listed above 600/night. This lack of training examples for
-properties of certain prices in certain neighborhoods has implications
-on our model’s ability to predict properties in these “edge cases”.
-Downtown and Kitsilano have some of the highest priced properties, with
-listings almost consistently up to 1000/night. This analysis further
-emphasizes the need to combine neighborhoods to improve the performance
-of our model.
+#### Understanding Price by Neighborhood
 
-*Understanding Price by Property Type* ![alt
-tag](../output/price_by_property_type.png)
+<img src="../output/neighborhoods.png" title="Figure 2: Number of properties by price and neighborhood" alt="Figure 2: Number of properties by price and neighborhood" width="60%" height="60%" />
+Some neighborhoods do not have any properties listed above a certain
+price point. For instance, Strathcona and Killarney have no properties
+listed above $350/night. Most neighborhoods do not have any properties
+listed above $600/night. This lack of training examples for properties
+of certain prices in certain neighborhoods has implications on our
+model’s ability to predict properties in these “edge cases”. Downtown
+and Kitsilano have some of the highest priced properties, with listings
+almost consistently up to $
+1000/night.
 
-To understand the relationship between nightly price and property type,
-we analyze the distribution of the number of properties by property type
-and price point. Other than houses, condos and apartments, other
-categories have very sparse data, especially across price points. In
-particular, Aparthotel, Bed and breakfast, Boat, Boutique hotel, Cabin,
-Cottage, Hotel, Timeshare and Tinyhouse are problematic. These
-categories should probably be collapsed into “Other” as a part of
-preprocessing. The model would be able to best predict on unseen house,
-apartment and condo properties since there is the most data to learn
-from across price points.
+#### Understanding Price by Property Type
 
-###### Machine Learning Analysis
+<img src="../output/price_by_property_type.png" title="Figure 3: Number of properties by price and property type" alt="Figure 3: Number of properties by price and property type" width="60%" height="60%" />
+Other than houses, condos and apartments, other categories have very
+sparse data, especially across price points. In particular, Aparthotel,
+Bed and breakfast, Boat, Boutique hotel, Cabin, Cottage, Hotel,
+Timeshare and Tinyhouse are problematic. The model we develop would be
+able to best predict on unseen house, apartment and condo properties
+since there is the most data to learn from across price points.
 
-The tables below serve to answer the question: “Which machine learning
-model would best predict nightly price?”
+### Building our model
+
+The first step in identifying the most appropriate model was to evaluate
+four different machine learning models for accuracy and computational
+complexity. Mean squared error (MSE) was used as the accuracy metric
+since we are using regression techniques.
+
+    ## # A tibble: 4 x 5
+    ##   X1    `Train MSE` `Validation MSE` `Time in second… row_names$`"Lin…
+    ##   <chr>       <dbl>            <dbl>            <dbl> <chr>           
+    ## 1 lr         69771.           73208.           0.0245 Linear Regressi…
+    ## 2 kNN        56795.           99535.           0.660  Linear Regressi…
+    ## 3 svr        77902.           79010.           1.41   Linear Regressi…
+    ## 4 rfr        17023.          110384.           6.32   Linear Regressi…
+    ## # … with 3 more variables: $`"kNN Regressor"` <chr>, $`"Support Vector
+    ## #   Machine Regression"` <chr>, $`"Random Forest Regressor"` <chr>
 
 | X1  | Train MSE | Validation MSE | Time in seconds |
 | :-- | --------: | -------------: | --------------: |
-| lr  |  69770.76 |       73207.93 |          0.0381 |
-| kNN |  56795.11 |       99535.03 |          0.5715 |
-| svr |  77902.28 |       79010.28 |          1.3191 |
-| rfr |  19658.77 |      108653.28 |          6.1625 |
+| lr  |  69770.76 |       73207.93 |          0.0245 |
+| kNN |  56795.11 |       99535.03 |          0.6603 |
+| svr |  77902.28 |       79010.28 |          1.4141 |
+| rfr |  17022.82 |      110384.43 |          6.3249 |
 
-Table 1 shows the baseline training and validation mean squared errors
-and training and validation learning time.
+Table 1: Baseline results for four
+models
 
 | X1               |    Train MSE |    Validation MSE |                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Time in seconds |
 | :--------------- | -----------: | ----------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| lr               |     69770.76 |          73207.93 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   0.0211 |
-| kNN\_optimized   |     55127.74 |         106511.12 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   0.5159 |
-| svr\_optimized   |     84757.31 |          85335.84 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   1.5690 |
+| lr               |    69770.758 |          73207.93 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   0.0233 |
+| kNN\_optimized   |     4889.878 |          65284.75 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   0.6332 |
+| svr\_optimized   |    84757.310 |          85335.84 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   1.3071 |
 | Without hyperpar | amter optimi | zation, we shortl | isted the models: linear regression (lr), KNeighborsRegressor (kNN), and support vector regression (SVR), because they performed better in terms of accuracy and time. After hyperparameter optimization, we compared the optimized time and accuracy of SVR and kNN with linear regression, and decided that linear regression overall was the better machine learning model to predict price given our data performing well on the 3 categories: accuracy, time, and interpretability. |
 
 Table 2 shows the optimized training and validation mean squared errors

@@ -35,6 +35,7 @@ from sklearn.preprocessing import PolynomialFeatures
 import requests
 import os
 from docopt import docopt
+import random
 
 opt = docopt(__doc__)
 
@@ -42,6 +43,7 @@ opt = docopt(__doc__)
 
 # main function
 def main(training_file_path, test_file_path, output_file_path):
+  random.seed(123)
   X_train, y_train, X_test, y_test = read_and_split(training_file_path, test_file_path)
   X_train_p, X_test_p = preprocess_features(X_train, X_test)
   X_train_subset, X_valid, y_train_subset, y_valid = test_baseline_models(X_train_p, y_train, output_file_path)
