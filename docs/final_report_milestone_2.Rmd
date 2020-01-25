@@ -82,6 +82,7 @@ baseline <- baseline %>%
 
 kable(baseline, caption = "Table 1: Baseline performance for four models ")
 ```
+
 The linear regressor and support vector machine (SVM) regressor performed the best in terms of accuracy on the validation set. While the kNN regressor performed poorly, it has clearly overfit since hyperparameters had not been tuned yet. We will shortlist these three models for further analysis. As we can see, the random forest regressor was not only computationally intensive, but also performed poorly. Combined with the poor interpretability of random forest models, we have removed this model from our consideration set. 
 
 We tuned `n_neighbors` and `gamma` hyperparameters for our kNN and SVM regressors respectively. The following table shows our findings along with the results for our linear regressor.

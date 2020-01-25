@@ -150,15 +150,23 @@ complexity. Mean squared error (MSE) was used as the accuracy metric
 since we are using regression
 techniques.
 
-| Models                               |   Train MSE |    Validation MSE |                                                                                                                                                                                                                                                                                                                                                                                                                                                          Computation time (s) |
-| :----------------------------------- | ----------: | ----------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| Linear Regression                    |    69770.76 |          73207.93 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        0.0230 |
-| kNN Regressor                        |    56795.11 |          99535.03 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        0.6194 |
-| Support Vector Machine Regression    |    77902.28 |          79010.28 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        1.4214 |
-| Random Forest Regressor              |    20688.84 |         118139.93 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        6.3459 |
-| The linear regressor and support vec | tor machine | (SVM) regressor p | erformed the best in terms of accuracy on the validation set. While the kNN regressor performed poorly, it has clearly overfit since hyperparameters had not been tuned yet. We will shortlist these three models for further analysis. As we can see, the random forest regressor was not only computationally intensive, but also performed poorly. Combined with the poor interpretability of random forest models, we have removed this model from our consideration set. |
+| Models                            | Train MSE | Validation MSE | Computation time (s) |
+| :-------------------------------- | --------: | -------------: | -------------------: |
+| Linear Regression                 |  69770.76 |       73207.93 |               0.0242 |
+| kNN Regressor                     |  56795.11 |       99535.03 |               0.6246 |
+| Support Vector Machine Regression |  77902.28 |       79010.28 |               1.3930 |
+| Random Forest Regressor           |  23060.37 |       94558.93 |               6.2313 |
 
 Table 1: Baseline performance for four models
+
+The linear regressor and support vector machine (SVM) regressor
+performed the best in terms of accuracy on the validation set. While the
+kNN regressor performed poorly, it has clearly overfit since
+hyperparameters had not been tuned yet. We will shortlist these three
+models for further analysis. As we can see, the random forest regressor
+was not only computationally intensive, but also performed poorly.
+Combined with the poor interpretability of random forest models, we have
+removed this model from our consideration set.
 
 We tuned `n_neighbors` and `gamma` hyperparameters for our kNN and SVM
 regressors respectively. The following table shows our findings along
@@ -167,15 +175,15 @@ with the results for our linear regressor.
     ## # A tibble: 3 x 4
     ##   Models                 `Train MSE` `Validation MSE` `Computation time (s…
     ##   <chr>                        <dbl>            <dbl>                 <dbl>
-    ## 1 Linear Regression           69771.           73208.                0.0255
-    ## 2 Optimized kNN                4896.           93072.                0.669 
-    ## 3 Optimized SVM Regress…      84757.           85336.                1.34
+    ## 1 Linear Regression           69771.           73208.                0.0207
+    ## 2 Optimized kNN                4896.           93072.                0.627 
+    ## 3 Optimized SVM Regress…      84757.           85336.                1.38
 
 | X1             | Train MSE | Validation MSE | Time in seconds |
 | :------------- | --------: | -------------: | --------------: |
-| lr             | 69770.758 |       73207.93 |          0.0255 |
-| kNN\_optimized |  4895.638 |       93072.14 |          0.6693 |
-| svr\_optimized | 84757.310 |       85335.84 |          1.3429 |
+| lr             | 69770.758 |       73207.93 |          0.0207 |
+| kNN\_optimized |  4895.638 |       93072.14 |          0.6267 |
+| svr\_optimized | 84757.310 |       85335.84 |          1.3840 |
 
 Table 2: Performance of optimized models
 
