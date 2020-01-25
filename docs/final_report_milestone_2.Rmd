@@ -104,7 +104,7 @@ To our surprise, our linear regressor performed the best on both accuracy and co
 ### Evaluating our model: performance and limitations
 To understand how our model performs on a variety of price ranges, we created the following residual plot showing the difference in predicted value compared to the actual price against actual prices.
 
-```{r property type, echo=FALSE, fig.cap="Figure 4: Residuals by true price for linear regression model", out.width = '60%', out.height='60%'}
+```{r model residuals, echo=FALSE, fig.cap="Figure 4: Residuals by true price for linear regression model", out.width = '60%', out.height='60%'}
 knitr::include_graphics("../output/residual_plot.png")
 ```
 

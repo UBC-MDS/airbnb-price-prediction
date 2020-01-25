@@ -18,13 +18,12 @@ responsiveness of the host.
 
 Surprisingly, our linear regression predictor exceeded the performance
 of more complex machine learning models that were evaluated (e.g.,
-random forest regressor). This current model, however, tends to
-consistently overestimate the price of AirBnB’s below $200/night and
-underestimate the price of AirBnB’s above $300/night. Further work
-should involve feature engineering to model interactions between
-features (e.g., neighborhood and property type) as well as fitting more
-complex linear models (e.g., that better model pricing behaviour above
-$300/night).
+random forest regressor). This model, however, tends to consistently
+overestimate the price of AirBnB’s below $200/night and underestimate
+the price of AirBnB’s above $300/night. Further work should involve
+feature engineering to model interactions between features (e.g.,
+neighborhood and property type) as well as fitting more complex linear
+models (e.g., that better model pricing behaviour above $300/night).
 
 ## Introduction
 
@@ -148,59 +147,82 @@ since there is the most data to learn from across price points.
 The first step in identifying the most appropriate model was to evaluate
 four different machine learning models for accuracy and computational
 complexity. Mean squared error (MSE) was used as the accuracy metric
-since we are using regression techniques.
+since we are using regression
+techniques.
 
-    ## # A tibble: 4 x 5
-    ##   X1    `Train MSE` `Validation MSE` `Time in second… row_names$`"Lin…
-    ##   <chr>       <dbl>            <dbl>            <dbl> <chr>           
-    ## 1 lr         69771.           73208.           0.0245 Linear Regressi…
-    ## 2 kNN        56795.           99535.           0.660  Linear Regressi…
-    ## 3 svr        77902.           79010.           1.41   Linear Regressi…
-    ## 4 rfr        17023.          110384.           6.32   Linear Regressi…
-    ## # … with 3 more variables: $`"kNN Regressor"` <chr>, $`"Support Vector
-    ## #   Machine Regression"` <chr>, $`"Random Forest Regressor"` <chr>
+| Models                               |   Train MSE |    Validation MSE |                                                                                                                                                                                                                                                                                                                                                                                                                                                          Computation time (s) |
+| :----------------------------------- | ----------: | ----------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Linear Regression                    |    69770.76 |          73207.93 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        0.0230 |
+| kNN Regressor                        |    56795.11 |          99535.03 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        0.6194 |
+| Support Vector Machine Regression    |    77902.28 |          79010.28 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        1.4214 |
+| Random Forest Regressor              |    20688.84 |         118139.93 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        6.3459 |
+| The linear regressor and support vec | tor machine | (SVM) regressor p | erformed the best in terms of accuracy on the validation set. While the kNN regressor performed poorly, it has clearly overfit since hyperparameters had not been tuned yet. We will shortlist these three models for further analysis. As we can see, the random forest regressor was not only computationally intensive, but also performed poorly. Combined with the poor interpretability of random forest models, we have removed this model from our consideration set. |
 
-| X1  | Train MSE | Validation MSE | Time in seconds |
-| :-- | --------: | -------------: | --------------: |
-| lr  |  69770.76 |       73207.93 |          0.0245 |
-| kNN |  56795.11 |       99535.03 |          0.6603 |
-| svr |  77902.28 |       79010.28 |          1.4141 |
-| rfr |  17022.82 |      110384.43 |          6.3249 |
+Table 1: Baseline performance for four models
 
-Table 1: Baseline results for four
-models
+We tuned `n_neighbors` and `gamma` hyperparameters for our kNN and SVM
+regressors respectively. The following table shows our findings along
+with the results for our linear regressor.
 
-| X1               |    Train MSE |    Validation MSE |                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Time in seconds |
-| :--------------- | -----------: | ----------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| lr               |    69770.758 |          73207.93 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   0.0233 |
-| kNN\_optimized   |     4889.878 |          65284.75 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   0.6332 |
-| svr\_optimized   |    84757.310 |          85335.84 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   1.3071 |
-| Without hyperpar | amter optimi | zation, we shortl | isted the models: linear regression (lr), KNeighborsRegressor (kNN), and support vector regression (SVR), because they performed better in terms of accuracy and time. After hyperparameter optimization, we compared the optimized time and accuracy of SVR and kNN with linear regression, and decided that linear regression overall was the better machine learning model to predict price given our data performing well on the 3 categories: accuracy, time, and interpretability. |
+    ## # A tibble: 3 x 4
+    ##   Models                 `Train MSE` `Validation MSE` `Computation time (s…
+    ##   <chr>                        <dbl>            <dbl>                 <dbl>
+    ## 1 Linear Regression           69771.           73208.                0.0255
+    ## 2 Optimized kNN                4896.           93072.                0.669 
+    ## 3 Optimized SVM Regress…      84757.           85336.                1.34
 
-Table 2 shows the optimized training and validation mean squared errors
-and training and validation learning time.
+| X1             | Train MSE | Validation MSE | Time in seconds |
+| :------------- | --------: | -------------: | --------------: |
+| lr             | 69770.758 |       73207.93 |          0.0255 |
+| kNN\_optimized |  4895.638 |       93072.14 |          0.6693 |
+| svr\_optimized | 84757.310 |       85335.84 |          1.3429 |
 
-![alt tag](../output/residual_plot.png)
+Table 2: Performance of optimized models
 
-The above plot shows the residuals of the best model plotted against the
-true prices. The residuals indicate the difference in predicted value of
-the linear regression model and the actual price value. In this case, we
-can see how well our linear regression model predicted prices at any
-given price within the range of 0 to 800.
+To our surprise, our linear regressor performed the best on both
+accuracy and computational complexity. Linear regression is also the
+most interpretable. As a result, our linear regressor was selected as
+the best model at this stage of our analysis.
 
-To further improve our solution to the question “At what nightly price
-should we list our Vancouver AirBnB?”, there are several remedies for
-future researchers whom choose to take on this project. First, we would
-suggest consulting domain experts in the field of Airbnb when deciding
-which features to select for model training usage. Our preliminary
-decision to select features was based solely off of our common
-collective knowledge of hostel prices. Second, we would suggest
-optimizing more hyperparamters within the parameter grid. This could
-allow for more accurate and time efficient models due to their optimized
-hyperparameters. And lastly, an ideal answer to our research question
-would include the ideal range of parameter values for each
-characteristic/feature in which our model performs reliably, but due to
-time constraints we were not able to obtain this.
+### Evaluating our model: performance and limitations
+
+To understand how our model performs on a variety of price ranges, we
+created the following residual plot showing the difference in predicted
+value compared to the actual price against actual
+prices.
+
+<img src="../output/residual_plot.png" title="Figure 4: Residuals by true price for linear regression model" alt="Figure 4: Residuals by true price for linear regression model" width="60%" height="60%" />
+
+As we can see, our model tends to overestimate the price of AirBnB’s
+below $200/night and underestimate the price of AirBnB’s above
+$300/night. Since we fitted a linear model, this could indicate a
+non-linear relationship between our features and price. Right now, our
+model performs the best for properties that should be priced between
+$200 and $300/night, a limitation that should be taken account if a user
+were to use this model.
+
+### Future directions
+
+There are several ways to continue to improve our model performance that
+we list below: 1) **Feature engineering:** We selected a subset of
+features from a large dataset to train our model on based on our
+knowledge of AirBnB. Interviewing AirBnB hosts and frequent guests could
+reveal other important features that impact pricing. For instance,
+interactions between features (e.g., a property that accommodates many
+people in downtown Vancouver would be valued compared to one in the
+suburbs) could significantly improve the performance of the model.
+Engineering our features to group neighborhoods and property types that
+behave similarly but have few data points could also improve the
+performance of these edge cases. 2) **Fitting more complex linear
+models:** Our results suggest a non-linear relationship between price
+and our features. We can explore improving model performance by assuming
+different model distributions that better reflect the long tail of
+higher priced properties.
+
+Before our model is deployed for use, we also suggest pressure testing
+our model against a range of input values to identify the types of
+properties and bookings for which our model can make reliable
+predictions.
 
 # References
 
