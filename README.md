@@ -10,7 +10,7 @@ At this stage, we have trained a variety of machine learning models based on pro
 
 Surprisingly, our linear regression predictor exceeded the performance of more complex machine learning models that were evaluated (e.g., random forest regressor). This current model, however, tends to consistently overestimate the price of AirBnb's below $200/night and underestimate the price of AirBnB's above $300/night. Further work should involve feature engineering to model interactions between features (e.g., neighborhood and property type) as well as fitting more complex linear models (e.g., that better model pricing behaviour above $300/night). 
 
-Details about our dataset can be found [here](#dataset).
+Details about our dataset can be found [here](#dataset-source).
 
 
 ## Report
