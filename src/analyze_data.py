@@ -16,6 +16,7 @@ import numpy as np
 import pandas as pd
 import time
 import altair as alt
+import scipy as scipy
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler, OneHotEncoder
@@ -38,8 +39,6 @@ from docopt import docopt
 import random
 
 opt = docopt(__doc__)
-
-## to run this: python src/analyze_data.py --training_file_path data/train_data.csv --test_file_path data/test_data.csv --output_file_path report
 
 # main function
 def main(training_file_path, test_file_path, output_file_path):
@@ -75,6 +74,15 @@ def read_and_split(training_file_path, test_file_path):
   y_test = test[['price']]
   
   return X_train, y_train, X_test, y_test
+  
+def test_read_and_split():
+  training_file_path = 'data/train_data.csv'
+  test_file_path = 'data/test_data.csv'
+  X_train, y_train, X_test, y_test = read_and_split(training_file_path, test_file_path)
+  assert isinstance(X_train, pd.DataFrame), "X_train is not a dataframe"
+  assert isinstance(X_test, pd.DataFrame), "X_test is not a dataframe"
+  
+test_read_and_split()
   
 def preprocess_features(X_train, X_test):
   """
@@ -125,6 +133,17 @@ def preprocess_features(X_train, X_test):
   
   return X_train_p, X_test_p
 
+def test_preprocess_features():
+  training_file_path = 'data/train_data.csv'
+  test_file_path = 'data/test_data.csv'
+  X_train, y_train, X_test, y_test = read_and_split(training_file_path, test_file_path)
+  X_train_p, X_test_p = preprocess_features(X_train, X_test)
+  
+  assert isinstance(X_train_p, scipy.sparse.csr.csr_matrix), "X_train_p is not a sparse matrix"
+  assert isinstance(X_test_p,scipy.sparse.csr.csr_matrix), "X_test_p is not a sparse matrix"
+
+test_preprocess_features()
+  
 def test_baseline_models(X_train_p, y_train, output_file_path):
   """
   This function makes a subset of train dataset, trains variety of models, outputs time usage, MSE for train 
@@ -169,6 +188,19 @@ def test_baseline_models(X_train_p, y_train, output_file_path):
 
   return X_train_subset, X_valid, y_train_subset, y_valid
   
+def test_test_baseline_models():
+  training_file_path = 'data/train_data.csv'
+  test_file_path = 'data/test_data.csv'
+  output_file_path = 'output'
+  X_train, y_train, X_test, y_test = read_and_split(training_file_path, test_file_path)
+  X_train_p, X_test_p = preprocess_features(X_train, X_test)
+  X_train_subset, X_valid, y_train_subset, y_valid = test_baseline_models(X_train_p, y_train, output_file_path)
+  
+  assert isinstance(X_train_subset, scipy.sparse.csr.csr_matrix), "X_train_subset is not a sparse matrix"
+  assert isinstance(X_valid, scipy.sparse.csr.csr_matrix), "X_valid is not a sparse matrix"
+  
+test_test_baseline_models()
+  
 
 def hyperparameter_search(X_train_p, y_train):
   """
@@ -202,6 +234,20 @@ def hyperparameter_search(X_train_p, y_train):
   random_search_knn.fit(X_train_p, y_train)
   
   return random_search_svr, random_search_knn
+  
+def test_hyperparameter_search():
+  training_file_path = 'data/train_data.csv'
+  test_file_path = 'data/test_data.csv'
+  output_file_path = 'output'
+  X_train, y_train, X_test, y_test = read_and_split(training_file_path, test_file_path)
+  X_train_p, X_test_p = preprocess_features(X_train, X_test)
+  X_train_subset, X_valid, y_train_subset, y_valid = test_baseline_models(X_train_p, y_train, output_file_path)
+  random_search_svr, random_search_knn = hyperparameter_search(X_train_p, y_train)
+  
+  assert isinstance(random_search_svr, RandomizedSearchCV), "random_search_svr is not a RandomizedSearchCV object"
+  assert isinstance(random_search_knn, RandomizedSearchCV), "random_search_knn is not a RandomizedSearchCV object"
+  
+test_hyperparameter_search()
 
 def test_final_models(random_search_svr, random_search_knn, X_train_subset, X_valid, y_train_subset, y_valid, output_file_path):
   """
@@ -259,6 +305,22 @@ def test_final_models(random_search_svr, random_search_knn, X_train_subset, X_va
   best_models_df.columns = ["Train MSE", "Validation MSE", "Time in seconds"]
   best_models_df.to_csv(os.path.join(output_file_path, 'optimized_results.csv'))
   
+  return best_models_df
+  
+def test_test_final_models():
+  training_file_path = 'data/train_data.csv'
+  test_file_path = 'data/test_data.csv'
+  output_file_path = 'output'
+  X_train, y_train, X_test, y_test = read_and_split(training_file_path, test_file_path)
+  X_train_p, X_test_p = preprocess_features(X_train, X_test)
+  X_train_subset, X_valid, y_train_subset, y_valid = test_baseline_models(X_train_p, y_train, output_file_path)
+  random_search_svr, random_search_knn = hyperparameter_search(X_train_p, y_train)
+  best_models_df = test_final_models(random_search_svr, random_search_knn, X_train_subset, X_valid, y_train_subset, y_valid, output_file_path)
+  
+  assert isinstance(best_models_df, pd.DataFrame), "best_models_df is not a dataframe"
+
+test_test_final_models()
+  
 def fit_and_plot_best_model(X_train_p, y_train, X_test_p, y_test, output_file_path):
   """
   This function computes residuals of the best performing model and outputs a chart with true Airbnb cost in relation 
@@ -302,13 +364,23 @@ def fit_and_plot_best_model(X_train_p, y_train, X_test_p, y_test, output_file_pa
   ).interactive()
   
   residual_plot.save(os.path.join(output_file_path, 'residual_plot.png'))
+  
+  return residual_plot
+  
+def test_fit_and_plot_best_model():
+  training_file_path = 'data/train_data.csv'
+  test_file_path = 'data/test_data.csv'
+  output_file_path = 'output'
+  X_train, y_train, X_test, y_test = read_and_split(training_file_path, test_file_path)
+  X_train_p, X_test_p = preprocess_features(X_train, X_test)
+  X_train_subset, X_valid, y_train_subset, y_valid = test_baseline_models(X_train_p, y_train, output_file_path)
+  random_search_svr, random_search_knn = hyperparameter_search(X_train_p, y_train)
+  best_models_df = test_final_models(random_search_svr, random_search_knn, X_train_subset, X_valid, y_train_subset, y_valid, output_file_path)
+  residual_plot = fit_and_plot_best_model(X_train_p, y_train, X_test_p, y_test, output_file_path)
+  
+  assert isinstance(residual_plot, alt.vegalite.v3.api.Chart), "residual_plot is not altair chart object"
 
-if __name__ == "__main__":
-  main(opt["--training_file_path"], opt["--test_file_path"], opt["--output_file_path"])
-
-# test function
-def test_function(output_file_path):
-    assert check_file(output_file_path), "File wasn't downloaded."
-
+test_fit_and_plot_best_model()
+  
 if __name__ == "__main__":
   main(opt["--training_file_path"], opt["--test_file_path"], opt["--output_file_path"])
