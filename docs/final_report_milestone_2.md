@@ -170,20 +170,14 @@ removed this model from our consideration set.
 
 We tuned `n_neighbors` and `gamma` hyperparameters for our kNN and SVM
 regressors respectively. The following table shows our findings along
-with the results for our linear regressor.
+with the results for our linear
+regressor.
 
-    ## # A tibble: 3 x 4
-    ##   Models                 `Train MSE` `Validation MSE` `Computation time (s…
-    ##   <chr>                        <dbl>            <dbl>                 <dbl>
-    ## 1 Linear Regression           69771.           73208.                0.0207
-    ## 2 Optimized kNN                4896.           93072.                0.627 
-    ## 3 Optimized SVM Regress…      84757.           85336.                1.38
-
-| X1             | Train MSE | Validation MSE | Time in seconds |
-| :------------- | --------: | -------------: | --------------: |
-| lr             | 69770.758 |       73207.93 |          0.0207 |
-| kNN\_optimized |  4895.638 |       93072.14 |          0.6267 |
-| svr\_optimized | 84757.310 |       85335.84 |          1.3840 |
+| Models                  | Train MSE | Validation MSE | Computation time (s) |
+| :---------------------- | --------: | -------------: | -------------------: |
+| Linear Regression       | 69770.758 |       73207.93 |               0.0207 |
+| Optimized kNN           |  4895.638 |       93072.14 |               0.6267 |
+| Optimized SVM Regressor | 84757.310 |       85335.84 |               1.3840 |
 
 Table 2: Performance of optimized models
 

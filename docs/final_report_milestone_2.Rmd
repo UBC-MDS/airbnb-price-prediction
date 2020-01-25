@@ -92,7 +92,7 @@ optimized <- read_csv("output/optimized_results.csv")
 
 Models <- c("Linear Regression", "Optimized kNN", "Optimized SVM Regressor")
 
-optimized %>%
+optimized <- optimized %>%
   add_column(Models) %>%
   mutate("Computation time (s)" = `Time in seconds`) %>%
   select("Models", "Train MSE", "Validation MSE", "Computation time (s)")
