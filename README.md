@@ -42,7 +42,7 @@ The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Group_3
       - sklearn==0.22.1
       - scipy==1.3.1
   - R version 3.6.1 and R packages:
-      - knitr==1.25 <-- check this
+      - knitr==1.27
       - tidyverse==1.2.1
       - docopt==0.6.1
       - testthat==2.2.1
