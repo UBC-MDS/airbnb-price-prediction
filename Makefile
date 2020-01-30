@@ -10,7 +10,7 @@
 # usage: make all
 
 # run all analysis
-all: docs/final_report_milestone_2.md docs/final_report_milestone_2.Rmd
+all: docs/final_report_milestone_2.md 
 
 # download data from URL
 data/listings.csv.gz: src/download_data.py
@@ -41,7 +41,7 @@ output/optimized_results.csv: src/analyze_data.py data/train_data.csv data/test_
 	python src/analyze_data.py --training_file_path data/train_data.csv --test_file_path data/test_data.csv --output_file_path output
 	
 # render report
-docs/final_report_milestone_2.md docs/final_report_milestone_2.Rmd: docs/final_report_milestone_2.Rmd output/neighborhoods.png output/number_of_properties_by_price.png output/price_by_property_type.png output/residual_plot.png output/baseline_results.csv output/optimized_results.csv
+docs/final_report_milestone_2.md: docs/final_report_milestone_2.Rmd output/neighborhoods.png output/number_of_properties_by_price.png output/price_by_property_type.png output/residual_plot.png output/baseline_results.csv output/optimized_results.csv
 	Rscript -e "rmarkdown::render('docs/final_report_milestone_2.Rmd')"
 
 # clean up intermediate and results files
@@ -50,4 +50,4 @@ clean:
 	rm -f data/*.csv
 	rm -f output/*.png
 	rm -f output/*.csv
-	rm -f docs/final_report_milestone_2.md docs/final_report_milestone_2.Rmd
+	rm -f docs/final_report_milestone_2.md 
