@@ -6,6 +6,7 @@ variation by neighborhoods and property type for Airbnb properties in Vancouver 
 Output is used for creating of the final report. 
 
 Usage: src/explore_data.py --data_path=<data_path> --file_path=<file_path>
+Note: in order to run this script you have to have a chrome driver and selenium automation tool.
 
 Options:
 
