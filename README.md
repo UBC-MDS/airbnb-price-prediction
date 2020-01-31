@@ -37,7 +37,7 @@ The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Group_3
       - requests==2.22.0
       - pandas==0.25.2
       - numpy==1.17.2
-      - altair==3.2.0
+      - altair==4.0.1
       - selenium==3.141.0
       - sklearn==0.22.1
       - scipy==1.3.1
