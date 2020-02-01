@@ -26,6 +26,7 @@ Becoming an AirBnB host is becoming a popular way to allow property owners to ru
 The AirBnB booking process is like any effective marketplace. Hosts need to set a competitive and fair rate for the use of their property. Guests will compare the quality of the property and the overall booking experience as well as the price against alternatives. A tool that predicts the market price of a property that a host intends to list will inform a host's pricing decision.
 
 This project intends to build a predictive machine learning model to help new AirBnB hosts set the nightly price of their Vancouver AirBnB. The following characteristics will be used in the machine learning model:
+
 - **Property-related characteristics**: property type, the neighborhood, number of people who can be accommodated, number of bathrooms, bedrooms and beds.
 - **Host-related characteristics**: host response rate to requests, whether the host is a superhost, whether the host identity has been verified.
 - **Booking-related characteristics**: whether the property can be instantly booked, the cancellation policy
@@ -34,7 +35,9 @@ To answer this overarching question, we would need to understand the following:
 ## Methods
 ### Dataset and Source
 
-We have chosen a dataset that outlines Vancouver AirBnB listings. The dataset can be found [here](http://insideairbnb.com/get-the-data.html) under the Vancouver, British Columbia section. A direct link to download the dataset is [here](http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz). Data were compiled November 9 2019.
+We have chosen a dataset that outlines Vancouver AirBnB listings. The dataset can be found [here](http://insideairbnb.com/get-the-data.html) under the Vancouver, British Columbia section. A direct link to download the dataset is [here](http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz). This data was compiled November 9 2019.
+
+There are 6181 AirBnB listings in this dataset. 
 
 ### Analysis
 Our research question requires us to build a model that predicts a continuous variable (price) based on property-, host- and booking-related characteristics which a combination of categorical and continuous variables. Types of models that would be appropriate for this task include linear regression, KNN regressor, SVM regressor, and random forest regressor. 
@@ -53,6 +56,7 @@ To begin our analysis, we wanted to understand a) the range and distribution of 
 ```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1: Number of properties by nightly price", out.width = '60%', out.height='60%'}
 knitr::include_graphics("../output/number_of_properties_by_price.png")
 ```
+Figure 1: Number of properties by nightly price (CAD)
 
 We can see that majority of properties are priced between $50 to $200 per night. There is a long right tail to this distribution reflecting fewer properties listed at high prices. As we create a model that suggests / predicts a price of a new AirBnB property, we have to be conscious of the fact that the training set has had more data to learn from prices towards the centre of the distribution.
 
@@ -60,13 +64,20 @@ We can see that majority of properties are priced between $50 to $200 per night.
 ```{r neighborhood, echo=FALSE, fig.cap="Figure 2: Number of properties by price and neighborhood", out.width = '60%', out.height='60%'}
 knitr::include_graphics("../output/neighborhoods.png")
 ```
+Figure 2: Number of properties by price (CAD) and neighborhood
+
 Some neighborhoods do not have any properties listed above a certain price point. For instance, Strathcona and Killarney have no properties listed above \$350/night. Most neighborhoods do not have any properties listed above \$600/night. This lack of training examples for properties of certain prices in certain neighborhoods has implications on our model's ability to predict properties in these "edge cases". Downtown and Kitsilano have some of the highest priced properties, with listings almost consistently up to \$ 1000/night.
 
 #### Understanding Price by Property Type
 ```{r property type, echo=FALSE, fig.cap="Figure 3: Number of properties by price and property type", out.width = '60%', out.height='60%'}
 knitr::include_graphics("../output/price_by_property_type.png")
 ```
-Other than houses, condos and apartments, other categories have very sparse data, especially across price points. In particular, Aparthotel, Bed and breakfast, Boat, Boutique hotel, Cabin, Cottage, Hotel, Timeshare and Tinyhouse are problematic. The model we develop would be able to best predict on unseen house, apartment and condo properties since there is the most data to learn from across price points.
+Figure 3: Number of properties by price (CAD) and property type
+
+Other than houses, condos and apartments, other categories have very sparse data, especially across price points. In particular, Aparthotel, Bed and breakfast, Boat, Boutique hotel, Cabin, Cottage, Hotel, Timeshare and Tinyhouse are problematic. The model we develop would be able to best predict on unseen house, apartment and condo properties since there is the most data to learn from across price points. 
+
+#### Preprocessing Our Data
+Prior to fitting various machine learning models, we preprocessed our data to standardize scaling to improve the performance of models that rely on distance such as the KNN regressor. We also engineered the neighborhood feature, grouping neighborhoods into "Downtown", "Vancouver West" and "Vancouver East" to reduce class imbalance and sparsity of data for various neighborhoods. Missing numeric values were replaced with median values for the feature; missing categorical values were denoted as "missing". 
 
 ### Building our model
 The first step in identifying the most appropriate model was to evaluate four different machine learning models for accuracy and computational complexity. Mean squared error (MSE) was used as the accuracy metric since we are using regression techniques. 
@@ -114,7 +125,7 @@ As we can see, our model tends to overestimate the price of AirBnB's below \$200
 ### Future directions
 There are several ways to continue to improve our model performance that we list below:
 
-1) **Feature engineering:** We selected a subset of features from a large dataset to train our model on based on our knowledge of AirBnB. Interviewing AirBnB hosts and frequent guests could reveal other important features that impact pricing. For instance, interactions between features (e.g., a property that accommodates many people in downtown Vancouver would be valued compared to one in the suburbs) could significantly improve the performance of the model. Engineering our features to group neighborhoods and property types that behave similarly but have few data points could also improve the performance of these edge cases.
+1) **Further feature engineering:** We selected a subset of features from a large dataset to train our model on based on our knowledge of AirBnB. Interviewing AirBnB hosts and frequent guests could reveal other important features that impact pricing. For instance, interactions between features (e.g., a property that accommodates many people in downtown Vancouver would be valued compared to one in the suburbs) could significantly improve the performance of the model. Engineering our features to group property types that behave similarly but have few data points could also improve the performance of edge cases and imbalanced classes.
 
 2) **Fitting more complex linear models:** Our results suggest a non-linear relationship between price and our features. We can explore improving model performance by assuming different model distributions that better reflect the long tail of higher priced properties. 
 
