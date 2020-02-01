@@ -75,11 +75,19 @@ def read_and_split(training_file_path, test_file_path):
                   else 'East')
   )
   
+  
+  test['neighbourhood'] = np.nan
+  test['neighbourhood'] = test['neighbourhood_cleansed'].apply(
+    lambda x : 'Downtown' if x in ['Downtown', 'Downtown Eastside', 'West End', 'Strathcona'] 
+    else ('West' if x in ['Fairview', 'Shaughnessy', 'Oakridge', 'Dunbar Southlands', 'Arbutus Ridge', 
+                          'Kerrisdale', 'West Point Grey',  'Kitsilano',  'Marpole','South Cambie'] 
+                  else 'East')
+  )
 
   X_train = train.drop(columns = ['price', 'id', 'host_id', 'neighbourhood_cleansed'])
   y_train = train[['price']]
 
-  X_test = test.drop(columns = ['price', 'id', 'host_id'])
+  X_test = test.drop(columns = ['price', 'id', 'host_id', 'neighbourhood_cleansed'])
   y_test = test[['price']]
   
   return X_train, y_train, X_test, y_test
