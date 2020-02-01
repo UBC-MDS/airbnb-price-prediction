@@ -9,7 +9,6 @@ Options:
 --training_file_path=<training_file_path> file path to training set
 --test_file_path=<test_file_path> file path to test set
 --output_file_path=<file_path>  path to save output
-
 '''
 
 import numpy as np
@@ -67,10 +66,28 @@ def read_and_split(training_file_path, test_file_path):
   train = pd.read_csv(training_file_path)
   test = pd.read_csv(test_file_path)
 
-  X_train = train.drop(columns = ['price', 'id', 'host_id'])
+  #Preprosessing categorical feature to make data less sparse 
+  train['neighbourhood'] = np.nan
+  train['neighbourhood'] = train['neighbourhood_cleansed'].apply(
+    lambda x : 'Downtown' if x in ['Downtown', 'Downtown Eastside', 'West End', 'Strathcona'] 
+    else ('West' if x in ['Fairview', 'Shaughnessy', 'Oakridge', 'Dunbar Southlands', 'Arbutus Ridge', 
+                          'Kerrisdale', 'West Point Grey',  'Kitsilano',  'Marpole','South Cambie'] 
+                  else 'East')
+  )
+  
+  
+  test['neighbourhood'] = np.nan
+  test['neighbourhood'] = test['neighbourhood_cleansed'].apply(
+    lambda x : 'Downtown' if x in ['Downtown', 'Downtown Eastside', 'West End', 'Strathcona'] 
+    else ('West' if x in ['Fairview', 'Shaughnessy', 'Oakridge', 'Dunbar Southlands', 'Arbutus Ridge', 
+                          'Kerrisdale', 'West Point Grey',  'Kitsilano',  'Marpole','South Cambie'] 
+                  else 'East')
+  )
+
+  X_train = train.drop(columns = ['price', 'id', 'host_id', 'neighbourhood_cleansed'])
   y_train = train[['price']]
 
-  X_test = test.drop(columns = ['price', 'id', 'host_id'])
+  X_test = test.drop(columns = ['price', 'id', 'host_id', 'neighbourhood_cleansed'])
   y_test = test[['price']]
   
   return X_train, y_train, X_test, y_test
@@ -107,7 +124,7 @@ def preprocess_features(X_train, X_test):
   numeric_features = ['host_response_rate', 'accommodates', 'bathrooms', 'bedrooms', 'beds']
 
   categorical_features = ['host_is_superhost','property_type','host_identity_verified', 
-                        'neighbourhood_cleansed','instant_bookable','cancellation_policy']
+                        'neighbourhood','instant_bookable','cancellation_policy']
 
   # Build a pipeline to do data processing
   numeric_transformer = Pipeline(steps=[
@@ -336,7 +353,6 @@ def fit_and_plot_best_model(X_train_p, y_train, X_test_p, y_test, output_file_pa
       
     X_test_p -- pd.DataFrame
       test set with encoded and scaled features(output of preprocess_features function)
-
     y_test -- pd.DataFrame
       test set containing target values
       
@@ -384,3 +400,4 @@ test_fit_and_plot_best_model()
   
 if __name__ == "__main__":
   main(opt["--training_file_path"], opt["--test_file_path"], opt["--output_file_path"])
+  
