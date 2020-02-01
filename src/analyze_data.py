@@ -66,7 +66,7 @@ def read_and_split(training_file_path, test_file_path):
   train = pd.read_csv(training_file_path)
   test = pd.read_csv(test_file_path)
 
-  #Preprosessing categorical feature to make data less sparse 
+  #Preprocessing categorical feature to make data less sparse 
   train['neighbourhood'] = np.nan
   train['neighbourhood'] = train['neighbourhood_cleansed'].apply(
     lambda x : 'Downtown' if x in ['Downtown', 'Downtown Eastside', 'West End', 'Strathcona'] 

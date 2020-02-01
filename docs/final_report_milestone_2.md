@@ -115,6 +115,7 @@ variables.
 #### Distribution of AirBnB nightly prices in our dataset
 
 <img src="../output/number_of_properties_by_price.png" title="Figure 1: Number of properties by nightly price" alt="Figure 1: Number of properties by nightly price" width="60%" height="60%" />
+
 Figure 1: Number of properties by nightly price (CAD)
 
 We can see that majority of properties are priced between $50 to $200
@@ -128,6 +129,7 @@ distribution.
 #### Understanding Price by Neighborhood
 
 <img src="../output/neighborhoods.png" title="Figure 2: Number of properties by price and neighborhood" alt="Figure 2: Number of properties by price and neighborhood" width="60%" height="60%" />
+
 Figure 2: Number of properties by price (CAD) and neighborhood
 
 Some neighborhoods do not have any properties listed above a certain
@@ -143,6 +145,7 @@ almost consistently up to $
 #### Understanding Price by Property Type
 
 <img src="../output/price_by_property_type.png" title="Figure 3: Number of properties by price and property type" alt="Figure 3: Number of properties by price and property type" width="60%" height="60%" />
+
 Figure 3: Number of properties by price (CAD) and property type
 
 Other than houses, condos and apartments, other categories have very
@@ -173,10 +176,10 @@ techniques.
 
 | Models                            | Train MSE | Validation MSE | Computation time (s) |
 | :-------------------------------- | --------: | -------------: | -------------------: |
-| Linear Regression                 |  70541.92 |       72763.08 |               0.0169 |
-| kNN Regressor                     |  62294.08 |       85795.84 |               0.6067 |
-| Support Vector Machine Regression |  77553.45 |       78725.64 |               1.4240 |
-| Random Forest Regressor           |  21217.25 |      130774.04 |               5.1611 |
+| Linear Regression                 | 70,541.92 |      72,763.08 |               0.0169 |
+| kNN Regressor                     | 62,294.08 |      85,795.84 |               0.6067 |
+| Support Vector Machine Regression | 77,553.45 |      78,725.64 |               1.4240 |
+| Random Forest Regressor           | 21,217.25 |     130,774.04 |               5.1611 |
 
 Table 1: Baseline performance for four models
 
@@ -196,9 +199,9 @@ regressor.
 
 | Models                  | Train MSE | Validation MSE | Computation time (s) |
 | :---------------------- | --------: | -------------: | -------------------: |
-| Linear Regression       |  70541.92 |       72763.08 |               0.0211 |
-| Optimized kNN           |   6649.46 |       80074.95 |               0.7686 |
-| Optimized SVM Regressor |  84756.88 |       85335.40 |               1.4195 |
+| Linear Regression       | 70,541.92 |      72,763.08 |               0.0211 |
+| Optimized kNN           |  6,649.46 |      80,074.95 |               0.7686 |
+| Optimized SVM Regressor | 84,756.88 |      85,335.40 |               1.4195 |
 
 Table 2: Performance of optimized models
 

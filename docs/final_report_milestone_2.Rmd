@@ -56,7 +56,9 @@ To begin our analysis, we wanted to understand a) the range and distribution of 
 ```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1: Number of properties by nightly price", out.width = '60%', out.height='60%'}
 knitr::include_graphics("../output/number_of_properties_by_price.png")
 ```
+
 Figure 1: Number of properties by nightly price (CAD)
+
 
 We can see that majority of properties are priced between $50 to $200 per night. There is a long right tail to this distribution reflecting fewer properties listed at high prices. As we create a model that suggests / predicts a price of a new AirBnB property, we have to be conscious of the fact that the training set has had more data to learn from prices towards the centre of the distribution.
 
@@ -64,7 +66,9 @@ We can see that majority of properties are priced between $50 to $200 per night.
 ```{r neighborhood, echo=FALSE, fig.cap="Figure 2: Number of properties by price and neighborhood", out.width = '60%', out.height='60%'}
 knitr::include_graphics("../output/neighborhoods.png")
 ```
+
 Figure 2: Number of properties by price (CAD) and neighborhood
+
 
 Some neighborhoods do not have any properties listed above a certain price point. For instance, Strathcona and Killarney have no properties listed above \$350/night. Most neighborhoods do not have any properties listed above \$600/night. This lack of training examples for properties of certain prices in certain neighborhoods has implications on our model's ability to predict properties in these "edge cases". Downtown and Kitsilano have some of the highest priced properties, with listings almost consistently up to \$ 1000/night.
 
@@ -72,7 +76,9 @@ Some neighborhoods do not have any properties listed above a certain price point
 ```{r property type, echo=FALSE, fig.cap="Figure 3: Number of properties by price and property type", out.width = '60%', out.height='60%'}
 knitr::include_graphics("../output/price_by_property_type.png")
 ```
+
 Figure 3: Number of properties by price (CAD) and property type
+
 
 Other than houses, condos and apartments, other categories have very sparse data, especially across price points. In particular, Aparthotel, Bed and breakfast, Boat, Boutique hotel, Cabin, Cottage, Hotel, Timeshare and Tinyhouse are problematic. The model we develop would be able to best predict on unseen house, apartment and condo properties since there is the most data to learn from across price points. 
 
@@ -91,7 +97,7 @@ baseline <- baseline %>%
   mutate("Computation time (s)" = `Time in seconds`) %>%
   select("Models", "Train MSE", "Validation MSE", "Computation time (s)")
 
-kable(baseline, caption = "Table 1: Baseline performance for four models ")
+kable(baseline, caption = "Table 1: Baseline performance for four models", format.args = list(big.mark = ","))
 ```
 
 The linear regressor and support vector machine (SVM) regressor performed the best in terms of accuracy on the validation set. While the kNN regressor performed poorly, it has clearly overfit since hyperparameters had not been tuned yet. We will shortlist these three models for further analysis. As we can see, the random forest regressor was not only computationally intensive, but also performed poorly. Combined with the poor interpretability of random forest models, we have removed this model from our consideration set. 
@@ -108,7 +114,7 @@ optimized <- optimized %>%
   mutate("Computation time (s)" = `Time in seconds`) %>%
   select("Models", "Train MSE", "Validation MSE", "Computation time (s)")
 
-kable(optimized, caption = "Table 2: Performance of optimized models")
+kable(optimized, caption = "Table 2: Performance of optimized models", format.args = list(big.mark = ","))
 ```
 
 To our surprise, our linear regressor performed the best on both accuracy and computational complexity. Linear regression is also the most interpretable. As a result, our linear regressor was selected as the best model at this stage of our analysis. 
