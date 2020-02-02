@@ -43,14 +43,17 @@ inform a host’s pricing decision.
 This project intends to build a predictive machine learning model to
 help new AirBnB hosts set the nightly price of their Vancouver AirBnB.
 The following characteristics will be used in the machine learning
-model: - **Property-related characteristics**: property type, the
-neighborhood, number of people who can be accommodated, number of
-bathrooms, bedrooms and beds. - **Host-related characteristics**: host
-response rate to requests, whether the host is a superhost, whether the
-host identity has been verified. - **Booking-related characteristics**:
-whether the property can be instantly booked, the cancellation policy To
-answer this overarching question, we would need to understand the
-following:
+model:
+
+  - **Property-related characteristics**: property type, the
+    neighborhood, number of people who can be accommodated, number of
+    bathrooms, bedrooms and beds.
+  - **Host-related characteristics**: host response rate to requests,
+    whether the host is a superhost, whether the host identity has been
+    verified.
+  - **Booking-related characteristics**: whether the property can be
+    instantly booked, the cancellation policy To answer this overarching
+    question, we would need to understand the following:
 
 ## Methods
 
@@ -61,7 +64,9 @@ dataset can be found [here](http://insideairbnb.com/get-the-data.html)
 under the Vancouver, British Columbia section. A direct link to download
 the dataset is
 [here](http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz).
-Data were compiled November 9 2019.
+This data was compiled November 9 2019.
+
+There are 6181 AirBnB listings in this dataset.
 
 ### Analysis
 
@@ -111,6 +116,8 @@ variables.
 
 <img src="../output/number_of_properties_by_price.png" title="Figure 1: Number of properties by nightly price" alt="Figure 1: Number of properties by nightly price" width="60%" height="60%" />
 
+Figure 1: Number of properties by nightly price (CAD)
+
 We can see that majority of properties are priced between $50 to $200
 per night. There is a long right tail to this distribution reflecting
 fewer properties listed at high prices. As we create a model that
@@ -122,6 +129,9 @@ distribution.
 #### Understanding Price by Neighborhood
 
 <img src="../output/neighborhoods.png" title="Figure 2: Number of properties by price and neighborhood" alt="Figure 2: Number of properties by price and neighborhood" width="60%" height="60%" />
+
+Figure 2: Number of properties by price (CAD) and neighborhood
+
 Some neighborhoods do not have any properties listed above a certain
 price point. For instance, Strathcona and Killarney have no properties
 listed above $350/night. Most neighborhoods do not have any properties
@@ -135,12 +145,26 @@ almost consistently up to $
 #### Understanding Price by Property Type
 
 <img src="../output/price_by_property_type.png" title="Figure 3: Number of properties by price and property type" alt="Figure 3: Number of properties by price and property type" width="60%" height="60%" />
+
+Figure 3: Number of properties by price (CAD) and property type
+
 Other than houses, condos and apartments, other categories have very
 sparse data, especially across price points. In particular, Aparthotel,
 Bed and breakfast, Boat, Boutique hotel, Cabin, Cottage, Hotel,
 Timeshare and Tinyhouse are problematic. The model we develop would be
 able to best predict on unseen house, apartment and condo properties
 since there is the most data to learn from across price points.
+
+#### Preprocessing Our Data
+
+Prior to fitting various machine learning models, we preprocessed our
+data to standardize scaling to improve the performance of models that
+rely on distance such as the KNN regressor. We also engineered the
+neighborhood feature, grouping neighborhoods into “Downtown”, “Vancouver
+West” and “Vancouver East” to reduce class imbalance and sparsity of
+data for various neighborhoods. Missing numeric values were replaced
+with median values for the feature; missing categorical values were
+denoted as “missing”.
 
 ### Building our model
 
@@ -152,10 +176,10 @@ techniques.
 
 | Models                            | Train MSE | Validation MSE | Computation time (s) |
 | :-------------------------------- | --------: | -------------: | -------------------: |
-| Linear Regression                 |  69770.76 |       73207.93 |               0.0242 |
-| kNN Regressor                     |  56795.11 |       99535.03 |               0.6246 |
-| Support Vector Machine Regression |  77902.28 |       79010.28 |               1.3930 |
-| Random Forest Regressor           |  23060.37 |       94558.93 |               6.2313 |
+| Linear Regression                 | 70,541.92 |      72,763.08 |               0.0169 |
+| kNN Regressor                     | 62,294.08 |      85,795.84 |               0.6067 |
+| Support Vector Machine Regression | 77,553.45 |      78,725.64 |               1.4240 |
+| Random Forest Regressor           | 21,217.25 |     130,774.04 |               5.1611 |
 
 Table 1: Baseline performance for four models
 
@@ -175,9 +199,9 @@ regressor.
 
 | Models                  | Train MSE | Validation MSE | Computation time (s) |
 | :---------------------- | --------: | -------------: | -------------------: |
-| Linear Regression       | 69770.758 |       73207.93 |               0.0207 |
-| Optimized kNN           |  4895.638 |       93072.14 |               0.6267 |
-| Optimized SVM Regressor | 84757.310 |       85335.84 |               1.3840 |
+| Linear Regression       | 70,541.92 |      72,763.08 |               0.0211 |
+| Optimized kNN           |  6,649.46 |      80,074.95 |               0.7686 |
+| Optimized SVM Regressor | 84,756.88 |      85,335.40 |               1.4195 |
 
 Table 2: Performance of optimized models
 
@@ -208,16 +232,16 @@ were to use this model.
 There are several ways to continue to improve our model performance that
 we list below:
 
-1)  **Feature engineering:** We selected a subset of features from a
-    large dataset to train our model on based on our knowledge of
+1)  **Further feature engineering:** We selected a subset of features
+    from a large dataset to train our model on based on our knowledge of
     AirBnB. Interviewing AirBnB hosts and frequent guests could reveal
     other important features that impact pricing. For instance,
     interactions between features (e.g., a property that accommodates
     many people in downtown Vancouver would be valued compared to one in
     the suburbs) could significantly improve the performance of the
-    model. Engineering our features to group neighborhoods and property
-    types that behave similarly but have few data points could also
-    improve the performance of these edge cases.
+    model. Engineering our features to group property types that behave
+    similarly but have few data points could also improve the
+    performance of edge cases and imbalanced classes.
 
 2)  **Fitting more complex linear models:** Our results suggest a
     non-linear relationship between price and our features. We can

@@ -66,7 +66,7 @@ def read_and_split(training_file_path, test_file_path):
   train = pd.read_csv(training_file_path)
   test = pd.read_csv(test_file_path)
 
-  #Preprosessing categorical feature to make data less sparse 
+  #Preprocessing categorical feature to make data less sparse 
   train['neighbourhood'] = np.nan
   train['neighbourhood'] = train['neighbourhood_cleansed'].apply(
     lambda x : 'Downtown' if x in ['Downtown', 'Downtown Eastside', 'West End', 'Strathcona'] 
@@ -394,7 +394,7 @@ def test_fit_and_plot_best_model():
   best_models_df = test_final_models(random_search_svr, random_search_knn, X_train_subset, X_valid, y_train_subset, y_valid, output_file_path)
   residual_plot = fit_and_plot_best_model(X_train_p, y_train, X_test_p, y_test, output_file_path)
   
-  assert isinstance(residual_plot, alt.vegalite.v4.api.Chart), "residual_plot is not altair chart object"
+  assert isinstance(residual_plot, alt.Chart), "residual_plot is not altair chart object"
 
 test_fit_and_plot_best_model()
   

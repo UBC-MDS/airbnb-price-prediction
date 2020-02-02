@@ -6,7 +6,6 @@ variation by neighborhoods and property type for Airbnb properties in Vancouver 
 Output is used for creating of the final report. 
 
 Usage: src/explore_data.py --data_path=<data_path> --file_path=<file_path>
-Note: in order to run this script you have to have a chrome driver and selenium automation tool.
 
 Options:
 
@@ -21,7 +20,6 @@ import requests
 import os
 import altair as alt
 from docopt import docopt
-from selenium import webdriver
 
 opt = docopt(__doc__)
 
@@ -38,8 +36,7 @@ def main(data_path, file_path):
         alt.Y('count()', title='No. of properties')
     ).properties(width=600, height = 300, title = 'Number of properties by nightly price (between $0 and $1000)')
     
-    number_of_properties_by_price.save(file_path + '/number_of_properties_by_price.png', 
-    webdriver = 'chrome', scale_factor=10.0)
+    number_of_properties_by_price.save(os.path.join(file_path, 'number_of_properties_by_price.png'))
     
     
     #Piece of wrangling for next 2 plots. Assigning labels to columns 
@@ -56,7 +53,7 @@ def main(data_path, file_path):
         alt.Color('count()')
     )
     
-    Neighborhoods.save(file_path + '/neighborhoods.png', webdriver = 'chrome', scale_factor=10.0)
+    Neighborhoods.save(os.path.join(file_path, 'neighborhoods.png'))
     
     #Third plot
     
@@ -65,8 +62,17 @@ def main(data_path, file_path):
           alt.Y('price:Q', bin=alt.Bin(extent=[0, 1000], step=50), title="Nightly price ($ CAD)"),
           alt.Color('count()')
       )
-    price_by_property_type.save(file_path + '/price_by_property_type.png', webdriver = 'chrome', scale_factor=10.0)
-
+      
+    price_by_property_type.save(os.path.join(file_path, 'price_by_property_type.png'))
+    
+# Check if images were saved
+def test_images_created():
+    main('data/train_data.csv', 'output')
+    assert os.path.isfile('output/number_of_properties_by_price.png'), "properties by price image wasn't created."
+    assert os.path.isfile('output/neighborhoods.png'), "neighborhoods by price image wasn't created."
+    assert os.path.isfile('output/price_by_property_type.png'), "property type by price image wasn't created."
+    
+test_images_created()
 
 if __name__ == "__main__":
     main(opt["--data_path"], opt["--file_path"])

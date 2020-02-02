@@ -19,17 +19,10 @@ The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Group_3
 ## Usage
 - Fork and clone this repo to your local machine
 - Install the [dependencies](#dependencies) listed below
-- Load the data by running the following commands in your terminal from the root of the project:
-
-  `python src/download_data.py --data_url 'http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz' --file_path data`
-  
-  `Rscript src/clean_data.R --data_path data/listings.csv.gz --file_path_clean data`
-  
-  `python src/explore_data.py --data_path data/train_data.csv --file_path output`
-  
-  `python src/analyze_data.py --training_file_path data/train_data.csv --test_file_path data/test_data.csv --output_file_path output`
-
-  `Rscript -e "rmarkdown::render('docs/final_report_milestone_2.Rmd')"`
+- To run the analysis, navigate to the root of this project and run the following on your Terminal:
+`make all`
+- To clean all generated analysis run:
+`make clean`
 
 ## Dependencies
   - Python 3.7.4 and Python packages:
@@ -47,6 +40,7 @@ The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Group_3
       - docopt==0.6.1
       - testthat==2.2.1
       - checkmate==1.9.4
+  - GNU make 4.2.1
 
 
 ## Dataset Source

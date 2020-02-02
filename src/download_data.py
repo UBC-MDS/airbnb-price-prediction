@@ -24,10 +24,14 @@ def main(data_url, file_path):
     with open(filename, "wb") as f:
         r = requests.get(data_url)
         f.write(r.content)
-        
+
 #Check if the file was created
-def test_function(file_path):
-    assert check_file(file_path), "File wasn't downloaded."
+def test_data_downloaded():
+    main('http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz', 'data')
+    assert os.path.isfile('data/listings.csv.gz'), "File wasn't downloaded."
+    
+test_data_downloaded()
+    
 
 if __name__ == "__main__":
     main(opt["--data_url"], opt["--file_path"])
