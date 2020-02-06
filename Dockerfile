@@ -16,8 +16,11 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_6
     /opt/conda/bin/conda clean -afy && \
     /opt/conda/bin/conda update -n base -c defaults conda
     
+# put anaconda python in path
+ENV PATH="/opt/conda/bin:${PATH}"
+    
 # install docopt python package
-RUN /opt/conda/bin/conda install -y -c anaconda docopt requests
+RUN conda install -y -c anaconda docopt requests
 
 # install python pandas, numpy, scipy
 RUN apt-get install -y python-numpy python-scipy python3-pandas
@@ -29,10 +32,10 @@ RUN wget -q "https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriv
     && unzip /tmp/chromedriver.zip -d /usr/bin/ \
     && rm /tmp/chromedriver.zip && chown root:root /usr/bin/chromedriver && chmod +x /usr/bin/chromedriver
     
-# RUN conda install -y -c conda-forge altair && conda install -y vega_datasets && conda install -y selenium
+RUN conda install -y -c conda-forge altair && conda install -y vega_datasets && conda install -y selenium
 
-# put anaconda python in path
-ENV PATH="/opt/conda/bin:${PATH}"
+# install sklearn
+RUN pip install -U scikit-learn
 
 # install R packages: knitr, docopt, testthat, checkmate
 RUN Rscript -e "install.packages('knitr')"
@@ -41,6 +44,3 @@ RUN Rscript -e "install.packages('testthat')"
 RUN Rscript -e "install.packages('checkmate')"
 
 CMD ["/bin/bash"]
-
-# questions: sklearn and altair
-# apt-get install python3-sklearn python3-sklearn-lib python3-sklearn-doc
