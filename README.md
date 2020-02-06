@@ -42,6 +42,8 @@ The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Group_3
       - checkmate==1.9.4
   - GNU make 4.2.1
 
+## Dependency Diagram of the Makefile
+![](Makefile.png)
 
 ## Dataset Source
 We have chosen a dataset that outlines Vancouver AirBnB listings. The dataset can be found [here](http://insideairbnb.com/get-the-data.html) under the Vancouver, British Columbia section. A direct link to download the dataset is [here](http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz). Data was compiled November 9 2019. 
