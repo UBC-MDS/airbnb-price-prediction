@@ -1,4 +1,4 @@
 ,Train MSE,Validation MSE,Time in seconds
-lr,70541.916,72763.083,0.0211
-kNN_optimized,6649.46,80074.952,0.7686
-svr_optimized,84756.878,85335.397,1.4195
+lr,70541.916,72763.083,0.0172
+kNN_optimized,60157.505,91771.586,0.6351
+svr_optimized,84756.878,85335.397,1.4233
