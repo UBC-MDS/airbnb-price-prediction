@@ -1,7 +1,9 @@
 # Docker file for airbnb_price_prediction
 # Monique Wong, Polina Romanchenko, Trevor Kwan, January 2020
 
-# usage: docker run --rm -v '/Users/moniquewong/Dropbox/MDS/16 - DSCI 522 - Workflows': /DSCI_522_Group_303 moniquewong/DSCI_522_Group_303 make -C '/DSCI_522_Group_303' all
+# usage to run with dockerhub: docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnb-price-draft make -C '/home/airbnb_price' all
+# usage to run locally: docker run --rm -v '/Users/moniquewong/Dropbox/MDS/16 - DSCI 522 - Workflows/DSCI_522_Group_303':/home/airbnb_price moniquewong/airbnb-price-draft make -C '/home/airbnb_price' all
+# example: docker run --rm -v PATH_ON_YOUR_COMPUTER:VOLUME_ON_CONTAINER DOCKER_IMAGE PROGRAM_TO_RUN PROGRAM_ARGUMENTS
 
 # use rocker/tidyverse as the base image and
 FROM rocker/tidyverse
@@ -39,11 +41,12 @@ RUN conda install -y -c conda-forge altair && conda install -y vega_datasets && 
 # install sklearn
 RUN pip install -U scikit-learn
 
-# install R packages: knitr, docopt, testthat, checkmate, kableExtra
+# install R packages: knitr, docopt, testthat, checkmate, kableExtra, here
 RUN Rscript -e "install.packages('knitr')"
 RUN Rscript -e "install.packages('docopt')"
 RUN Rscript -e "install.packages('testthat')"
 RUN Rscript -e "install.packages('checkmate')"
 RUN Rscript -e "install.packages('kableExtra')"
+RUN Rscript -e "install.packages('here')"
 
 CMD ["/bin/bash"]
