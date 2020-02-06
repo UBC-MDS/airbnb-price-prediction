@@ -1,6 +1,8 @@
 # Docker file for airbnb_price_prediction
 # Monique Wong, Polina Romanchenko, Trevor Kwan, January 2020
 
+# usage: docker run --rm -v '/Users/moniquewong/Dropbox/MDS/16 - DSCI 522 - Workflows': /DSCI_522_Group_303 moniquewong/DSCI_522_Group_303 make -C '/DSCI_522_Group_303' all
+
 # use rocker/tidyverse as the base image and
 FROM rocker/tidyverse
 
@@ -37,10 +39,11 @@ RUN conda install -y -c conda-forge altair && conda install -y vega_datasets && 
 # install sklearn
 RUN pip install -U scikit-learn
 
-# install R packages: knitr, docopt, testthat, checkmate
+# install R packages: knitr, docopt, testthat, checkmate, kableExtra
 RUN Rscript -e "install.packages('knitr')"
 RUN Rscript -e "install.packages('docopt')"
 RUN Rscript -e "install.packages('testthat')"
 RUN Rscript -e "install.packages('checkmate')"
+RUN Rscript -e "install.packages('kableExtra')"
 
 CMD ["/bin/bash"]
