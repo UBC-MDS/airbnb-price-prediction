@@ -2,8 +2,6 @@
 # Monique Wong, Polina Romanchenko, Trevor Kwan, January 2020
 
 # usage to run with dockerhub: docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnb-price-draft make -C '/home/airbnb_price' all
-# usage to run locally: docker run --rm -v '/Users/moniquewong/Dropbox/MDS/16 - DSCI 522 - Workflows/DSCI_522_Group_303':/home/airbnb_price moniquewong/airbnb-price-draft make -C '/home/airbnb_price' all
-# example: docker run --rm -v PATH_ON_YOUR_COMPUTER:VOLUME_ON_CONTAINER DOCKER_IMAGE PROGRAM_TO_RUN PROGRAM_ARGUMENTS
 
 # use rocker/tidyverse as the base image and
 FROM rocker/tidyverse

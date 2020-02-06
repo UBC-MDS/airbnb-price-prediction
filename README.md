@@ -17,6 +17,19 @@ Details about our dataset can be found [here](#dataset-source).
 The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Group_303/blob/master/docs/final_report_milestone_2.md).
 
 ## Usage
+There are two ways to reproduce this project. 
+
+**Option 1: Requires Docker**
+- Fork and clone this repo to your local machine
+- Use the command line to navigate to the root of this project on your computer
+- Input the following in your terminal (fill in PATH_ON_YOUR_COMPUTER with the absolute path to the root of this project)
+`docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnb-price make -C '/home/airbnb_price' all`
+
+- Use the following command to clean up the analysis:
+`docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnb-price-draft make -C '/home/airbnb_price' clean`
+
+
+**Option 2: Install the dependencies on your own**
 - Fork and clone this repo to your local machine
 - Install the [dependencies](#dependencies) listed below
 - To run the analysis, navigate to the root of this project and run the following on your Terminal:
@@ -40,6 +53,8 @@ The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Group_3
       - docopt==0.6.1
       - testthat==2.2.1
       - checkmate==1.9.4
+      - kableExtra==1.1.0
+      - here==0.1
   - GNU make 4.2.1
 
 ## Dependency Diagram of the Makefile
