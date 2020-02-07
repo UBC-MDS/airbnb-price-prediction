@@ -176,10 +176,10 @@ techniques.
 
 | Models                            | Train MSE | Validation MSE | Computation time (s) |
 | :-------------------------------- | --------: | -------------: | -------------------: |
-| Linear Regression                 | 70,541.92 |      72,763.08 |               0.0188 |
-| kNN Regressor                     | 62,294.08 |      85,795.84 |               0.8488 |
-| Support Vector Machine Regression | 77,553.45 |      78,725.64 |               1.5047 |
-| Random Forest Regressor           | 17,666.21 |     143,465.64 |               5.2087 |
+| Linear Regression                 |    70,542 |         72,763 |                  0.0 |
+| kNN Regressor                     |    62,294 |         85,796 |                  0.7 |
+| Support Vector Machine Regression |    77,553 |         78,726 |                  2.0 |
+| Random Forest Regressor           |    19,697 |        127,165 |                  5.0 |
 
 Table 1: Baseline performance for four models
 
@@ -199,9 +199,9 @@ regressor.
 
 | Models                  | Train MSE | Validation MSE | Computation time (s) |
 | :---------------------- | --------: | -------------: | -------------------: |
-| Linear Regression       | 70,541.92 |      72,763.08 |               0.0172 |
-| Optimized kNN           | 60,157.50 |      91,771.59 |               0.6351 |
-| Optimized SVM Regressor | 84,756.88 |      85,335.40 |               1.4233 |
+| Linear Regression       |    70,542 |         72,763 |                  0.0 |
+| Optimized kNN           |    60,158 |         91,772 |                  0.6 |
+| Optimized SVM Regressor |    84,757 |         85,335 |                  1.7 |
 
 Table 2: Performance of optimized models
 

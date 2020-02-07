@@ -94,7 +94,9 @@ baseline <- read_csv("output/baseline_results.csv")
 
 baseline <- baseline %>%
   add_column(Models) %>%
-  mutate("Computation time (s)" = `Time in seconds`) %>%
+  mutate("Computation time (s)" = round(`Time in seconds`, 1),
+         "Train MSE" = round(`Train MSE`, 0),
+         "Validation MSE" = round(`Validation MSE`, 0)) %>%
   select("Models", "Train MSE", "Validation MSE", "Computation time (s)")
 
 kable(baseline, caption = "Table 1: Baseline performance for four models", format.args = list(big.mark = ","))
@@ -111,7 +113,9 @@ Models <- c("Linear Regression", "Optimized kNN", "Optimized SVM Regressor")
 
 optimized <- optimized %>%
   add_column(Models) %>%
-  mutate("Computation time (s)" = `Time in seconds`) %>%
+  mutate("Computation time (s)" = round(`Time in seconds`, 1),
+         "Train MSE" = round(`Train MSE`, 0),
+         "Validation MSE" = round(`Validation MSE`, 0)) %>%
   select("Models", "Train MSE", "Validation MSE", "Computation time (s)")
 
 kable(optimized, caption = "Table 2: Performance of optimized models", format.args = list(big.mark = ","))
