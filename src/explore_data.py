@@ -30,13 +30,16 @@ def main(data_path, file_path):
     #First plot
     number_of_properties_by_price = alt.Chart(data).mark_bar(clip = True).encode(
         alt.X('price:Q',
-             scale=alt.Scale(domain=(0, 1000)),
-             bin=alt.Bin(extent=[0, 1000], step=25),
+             scale=alt.Scale(domain=(0, 700)),
+             bin=alt.Bin(extent=[0, 700], step=25),
              title='Nightly price'),
         alt.Y('count()', title='No. of properties')
-    ).properties(width=600, height = 300, title = 'Number of properties by nightly price (between $0 and $1000)')
+    ).properties(width=600, height = 300, title = 'Number of properties by nightly price (between $0 and $700+)'
+    ).configure_title(fontSize=20
+    ).configure_axis(labelFontSize=13,
+                    titleFontSize=17)
     
-    number_of_properties_by_price.save(os.path.join(file_path, 'number_of_properties_by_price.png'))
+   # number_of_properties_by_price.save(os.path.join(file_path, 'number_of_properties_by_price.png'))
     
     
     #Piece of wrangling for next 2 plots. Assigning labels to columns 
@@ -49,26 +52,41 @@ def main(data_path, file_path):
     #Second plot
     Neighborhoods = alt.Chart(price_data_labels).mark_rect().encode(
         alt.X('neighbourhood_cleansed:N', title="Neighborhoods"),
-        alt.Y('price:Q', bin=alt.Bin(extent=[0, 1000], step=50), title="Nightly price ($ CAD)"),
+        alt.Y('price:Q', bin=alt.Bin(extent=[0, 700], step=50), title="Nightly price ($ CAD)"),
         alt.Color('count()')
-    )
+        ).configure_title(fontSize=20
+    ).configure_axis(labelFontSize=13,
+                    titleFontSize=17)
+                    
     
-    Neighborhoods.save(os.path.join(file_path, 'neighborhoods.png'))
+    #First and second side bt side                
+    concat_1_2 = (number_of_properties_by_price | Neighborhoods).configure_title(fontSize=20
+        ).configure_axis(labelFontSize=13,titleFontSize=17
+        ).configure_legend(labelFontSize = 13,
+                          titleFontSize=15)
+
+    concat_1_2
+    
+    concat_1_2.save(os.path.join(file_path, 'neighborhoods.png'))
     
     #Third plot
     
     price_by_property_type = alt.Chart(price_data_labels).mark_rect().encode(
-          alt.X('property_type:N', title="Property Type"),
-          alt.Y('price:Q', bin=alt.Bin(extent=[0, 1000], step=50), title="Nightly price ($ CAD)"),
-          alt.Color('count()')
-      )
+        alt.X('price:Q', bin=alt.Bin(extent=[0, 700], step=50), title="Nightly price ($ CAD)"),  
+        alt.Y('property_type:N', title="Property Type"),
+        alt.Color('count()')
+      ).configure_title(fontSize=20
+    ).configure_axis(labelFontSize=13,
+                    titleFontSize=17
+    ).configure_legend(labelFontSize = 13,
+                          titleFontSize=15)
       
     price_by_property_type.save(os.path.join(file_path, 'price_by_property_type.png'))
     
 # Check if images were saved
 def test_images_created():
     main('data/train_data.csv', 'output')
-    assert os.path.isfile('output/number_of_properties_by_price.png'), "properties by price image wasn't created."
+#    assert os.path.isfile('output/number_of_properties_by_price.png'), "properties by price image wasn't created."
     assert os.path.isfile('output/neighborhoods.png'), "neighborhoods by price image wasn't created."
     assert os.path.isfile('output/price_by_property_type.png'), "property type by price image wasn't created."
     
