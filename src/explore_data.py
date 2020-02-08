@@ -50,7 +50,8 @@ def main(data_path, file_path):
     Neighborhoods = alt.Chart(price_data_labels).mark_rect().encode(
         alt.X('neighbourhood_cleansed:N', title="Neighborhoods"),
         alt.Y('price:Q', bin=alt.Bin(extent=[0, 700], step=50), title="Nightly price ($ CAD)"),
-        alt.Color('count()'))
+        alt.Color('count()')
+    ).properties(title = "Price of property by neighborhood")
                     
     
     #First and second side bt side                

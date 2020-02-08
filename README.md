@@ -23,10 +23,12 @@ There are two ways to reproduce this project.
 - Fork and clone this repo to your local machine
 - Use the command line to navigate to the root of this project on your computer
 - Input the following in your terminal (fill in PATH_ON_YOUR_COMPUTER with the absolute path to the root of this project)
-`docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnb-price:v1.0 make -C '/home/airbnb_price' all`
+
+`docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnbprice:v2.0 make -C '/home/airbnb_price' all`
 
 - Use the following command to clean up the analysis:
-`docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnb-price:v1.0 make -C '/home/airbnb_price' clean`
+
+`docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnbprice:v2.0 make -C '/home/airbnb_price' clean`
 
 
 **Option 2: Install the dependencies on your own**
@@ -58,7 +60,7 @@ There are two ways to reproduce this project.
   - GNU make 4.2.1
 
 ## Dependency Diagram of the Makefile
-![](Makefile.png)
+![](makefile-details/Makefile.png)
 
 ## Dataset Source
 We have chosen a dataset that outlines Vancouver AirBnB listings. The dataset can be found [here](http://insideairbnb.com/get-the-data.html) under the Vancouver, British Columbia section. A direct link to download the dataset is [here](http://data.insideairbnb.com/canada/bc/vancouver/2019-11-09/data/listings.csv.gz). Data was compiled November 9 2019. 
