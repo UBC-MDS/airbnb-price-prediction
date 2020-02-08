@@ -53,7 +53,7 @@ To begin our analysis, we wanted to understand a) the range and distribution of 
 
 #### Distribution of AirBnB nightly prices in our dataset
 ```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1: Number of properties by nightly price and by neighborhood", out.width = '100%', out.height='100%'}
-knitr::include_graphics("../output/neighborhoods.png")
+knitr::include_graphics("output/neighborhoods.png")
 ```
 
 Figure 1: Number of properties by nightly price (CAD) and by neighborhood 
@@ -64,7 +64,7 @@ When we examine the distribution of price by neighborhood, we see that some neig
 
 #### Understanding Price by Property Type
 ```{r property type, echo=FALSE, fig.cap="Figure 3: Number of properties by price and property type", out.width = '60%', out.height='60%'}
-knitr::include_graphics("../output/price_by_property_type.png")
+knitr::include_graphics("output/price_by_property_type.png")
 ```
 
 Figure 3: Number of properties by price (CAD) and property type
@@ -117,7 +117,7 @@ To our surprise, our linear regressor performed the best on both accuracy and co
 To understand how our model performs on a variety of price ranges, we created the following residual plot showing the difference in predicted value compared to the actual price against actual prices.
 
 ```{r model residuals, echo=FALSE, fig.cap="Figure 4: Residuals by true price for linear regression model", out.width = '60%', out.height='60%'}
-knitr::include_graphics("../output/residual_plot.png")
+knitr::include_graphics("output/residual_plot.png")
 ```
 
 As we can see, our model tends to overestimate the price of AirBnB's below \$200/night and underestimate the price of AirBnB's above \$300/night. Since we fitted a linear model, this could indicate a non-linear relationship between our features and price. Right now, our model performs the best for properties that should be priced between \$200 and \$300/night, a limitation that should be taken account if a user were to use this model. 

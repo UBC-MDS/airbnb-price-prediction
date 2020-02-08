@@ -114,7 +114,17 @@ variables.
 
 #### Distribution of AirBnB nightly prices in our dataset
 
-<img src="../output/neighborhoods.png" title="Figure 1: Number of properties by nightly price and by neighborhood" alt="Figure 1: Number of properties by nightly price and by neighborhood" width="60%" height="60%" />
+<div class="figure">
+
+<img src="output/neighborhoods.png" alt="Figure 1: Number of properties by nightly price and by neighborhood" width="100%" height="100%" />
+
+<p class="caption">
+
+Figure 1: Number of properties by nightly price and by neighborhood
+
+</p>
+
+</div>
 
 Figure 1: Number of properties by nightly price (CAD) and by
 neighborhood
@@ -139,7 +149,17 @@ almost consistently up to $
 
 #### Understanding Price by Property Type
 
-<img src="../output/price_by_property_type.png" title="Figure 3: Number of properties by price and property type" alt="Figure 3: Number of properties by price and property type" width="60%" height="60%" />
+<div class="figure">
+
+<img src="output/price_by_property_type.png" alt="Figure 3: Number of properties by price and property type" width="60%" height="60%" />
+
+<p class="caption">
+
+Figure 3: Number of properties by price and property type
+
+</p>
+
+</div>
 
 Figure 3: Number of properties by price (CAD) and property type
 
@@ -172,9 +192,9 @@ techniques.
 | Models                            | Train MSE | Validation MSE | Computation time (s) |
 | :-------------------------------- | --------: | -------------: | -------------------: |
 | Linear Regression                 |    70,542 |         72,763 |                  0.0 |
-| kNN Regressor                     |    62,294 |         85,796 |                  0.6 |
-| Support Vector Machine Regression |    77,553 |         78,726 |                  1.5 |
-| Random Forest Regressor           |    19,928 |        125,435 |                  5.2 |
+| kNN Regressor                     |    62,294 |         85,796 |                  1.0 |
+| Support Vector Machine Regression |    77,553 |         78,726 |                  1.8 |
+| Random Forest Regressor           |    17,894 |        135,048 |                  5.3 |
 
 Table 1: Baseline performance for four models
 
@@ -195,8 +215,8 @@ regressor.
 | Models                  | Train MSE | Validation MSE | Computation time (s) |
 | :---------------------- | --------: | -------------: | -------------------: |
 | Linear Regression       |    70,542 |         72,763 |                  0.0 |
-| Optimized kNN           |    60,158 |         91,772 |                  0.6 |
-| Optimized SVM Regressor |    84,757 |         85,335 |                  1.3 |
+| Optimized kNN           |    60,158 |         91,772 |                  2.7 |
+| Optimized SVM Regressor |    84,757 |         85,335 |                  1.7 |
 
 Table 2: Performance of optimized models
 
@@ -212,7 +232,17 @@ created the following residual plot showing the difference in predicted
 value compared to the actual price against actual
 prices.
 
-<img src="../output/residual_plot.png" title="Figure 4: Residuals by true price for linear regression model" alt="Figure 4: Residuals by true price for linear regression model" width="60%" height="60%" />
+<div class="figure">
+
+<img src="output/residual_plot.png" alt="Figure 4: Residuals by true price for linear regression model" width="60%" height="60%" />
+
+<p class="caption">
+
+Figure 4: Residuals by true price for linear regression model
+
+</p>
+
+</div>
 
 As we can see, our model tends to overestimate the price of AirBnB’s
 below $200/night and underestimate the price of AirBnB’s above
