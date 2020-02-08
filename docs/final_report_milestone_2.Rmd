@@ -53,24 +53,15 @@ The R and Python programming languages [@R; @Python] and the following R and Pyt
 To begin our analysis, we wanted to understand a) the range and distribution of prices represented in our dataset and b) potential issues with sparse data for neighborhood and property type categorical variables. 
 
 #### Distribution of AirBnB nightly prices in our dataset
-```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1: Number of properties by nightly price", out.width = '60%', out.height='60%'}
-knitr::include_graphics("../output/number_of_properties_by_price.png")
-```
-
-Figure 1: Number of properties by nightly price (CAD)
-
-
-We can see that majority of properties are priced between $50 to $200 per night. There is a long right tail to this distribution reflecting fewer properties listed at high prices. As we create a model that suggests / predicts a price of a new AirBnB property, we have to be conscious of the fact that the training set has had more data to learn from prices towards the centre of the distribution.
-
-#### Understanding Price by Neighborhood
-```{r neighborhood, echo=FALSE, fig.cap="Figure 2: Number of properties by price and neighborhood", out.width = '60%', out.height='60%'}
+```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1: Number of properties by nightly price and by neighborhood", out.width = '60%', out.height='60%'}
 knitr::include_graphics("../output/neighborhoods.png")
 ```
 
-Figure 2: Number of properties by price (CAD) and neighborhood
+Figure 1: Number of properties by nightly price (CAD) and by neighborhood 
 
+We can see that majority of properties are priced between $50 to $200 per night. There is a long right tail to this distribution reflecting fewer properties listed at high prices. As we create a model that suggests / predicts a price of a new AirBnB property, we have to be conscious of the fact that the training set has had more data to learn from prices towards the centre of the distribution.
 
-Some neighborhoods do not have any properties listed above a certain price point. For instance, Strathcona and Killarney have no properties listed above \$350/night. Most neighborhoods do not have any properties listed above \$600/night. This lack of training examples for properties of certain prices in certain neighborhoods has implications on our model's ability to predict properties in these "edge cases". Downtown and Kitsilano have some of the highest priced properties, with listings almost consistently up to \$ 1000/night.
+When we examine the distribution of price by neighborhood, we see that some neighborhoods do not have any properties listed above a certain price point. For instance, Strathcona and Killarney have no properties listed above \$350/night. Most neighborhoods do not have any properties listed above \$600/night. This lack of training examples for properties of certain prices in certain neighborhoods has implications on our model's ability to predict properties in these "edge cases". Downtown and Kitsilano have some of the highest priced properties, with listings almost consistently up to \$ 1000/night.
 
 #### Understanding Price by Property Type
 ```{r property type, echo=FALSE, fig.cap="Figure 3: Number of properties by price and property type", out.width = '60%', out.height='60%'}
