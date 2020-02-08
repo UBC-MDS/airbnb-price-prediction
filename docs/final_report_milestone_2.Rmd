@@ -1,8 +1,7 @@
 ---
 title: " Milestone 2 Final Report"
 output: 
-  github_document:
-    toc: True
+  github_document
 bibliography: milestone_2_refs.bib
 ---
 
@@ -53,7 +52,7 @@ The R and Python programming languages [@R; @Python] and the following R and Pyt
 To begin our analysis, we wanted to understand a) the range and distribution of prices represented in our dataset and b) potential issues with sparse data for neighborhood and property type categorical variables. 
 
 #### Distribution of AirBnB nightly prices in our dataset
-```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1: Number of properties by nightly price and by neighborhood", out.width = '60%', out.height='60%'}
+```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1: Number of properties by nightly price and by neighborhood", out.width = '100%', out.height='100%'}
 knitr::include_graphics("../output/neighborhoods.png")
 ```
 

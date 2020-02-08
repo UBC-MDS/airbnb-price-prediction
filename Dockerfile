@@ -47,4 +47,7 @@ RUN Rscript -e "install.packages('checkmate')"
 RUN Rscript -e "install.packages('kableExtra')"
 RUN Rscript -e "install.packages('here')"
 
+# install pandoc
+RUN apt-get install -y haskell-platform
+
 CMD ["/bin/bash"]
