@@ -114,25 +114,20 @@ variables.
 
 #### Distribution of AirBnB nightly prices in our dataset
 
-<img src="../output/number_of_properties_by_price.png" title="Figure 1: Number of properties by nightly price" alt="Figure 1: Number of properties by nightly price" width="60%" height="60%" />
+<img src="../output/neighborhoods.png" title="Figure 1: Number of properties by nightly price and by neighborhood" alt="Figure 1: Number of properties by nightly price and by neighborhood" width="60%" height="60%" />
 
-Figure 1: Number of properties by nightly price (CAD)
+Figure 1: Number of properties by nightly price (CAD) and by
+neighborhood
 
 We can see that majority of properties are priced between $50 to $200
 per night. There is a long right tail to this distribution reflecting
 fewer properties listed at high prices. As we create a model that
 suggests / predicts a price of a new AirBnB property, we have to be
 conscious of the fact that the training set has had more data to learn
-from prices towards the centre of the
-distribution.
+from prices towards the centre of the distribution.
 
-#### Understanding Price by Neighborhood
-
-<img src="../output/neighborhoods.png" title="Figure 2: Number of properties by price and neighborhood" alt="Figure 2: Number of properties by price and neighborhood" width="60%" height="60%" />
-
-Figure 2: Number of properties by price (CAD) and neighborhood
-
-Some neighborhoods do not have any properties listed above a certain
+When we examine the distribution of price by neighborhood, we see that
+some neighborhoods do not have any properties listed above a certain
 price point. For instance, Strathcona and Killarney have no properties
 listed above $350/night. Most neighborhoods do not have any properties
 listed above $600/night. This lack of training examples for properties
@@ -177,9 +172,9 @@ techniques.
 | Models                            | Train MSE | Validation MSE | Computation time (s) |
 | :-------------------------------- | --------: | -------------: | -------------------: |
 | Linear Regression                 |    70,542 |         72,763 |                  0.0 |
-| kNN Regressor                     |    62,294 |         85,796 |                  0.7 |
-| Support Vector Machine Regression |    77,553 |         78,726 |                  2.0 |
-| Random Forest Regressor           |    19,697 |        127,165 |                  5.0 |
+| kNN Regressor                     |    62,294 |         85,796 |                  0.6 |
+| Support Vector Machine Regression |    77,553 |         78,726 |                  1.5 |
+| Random Forest Regressor           |    19,928 |        125,435 |                  5.2 |
 
 Table 1: Baseline performance for four models
 
@@ -201,7 +196,7 @@ regressor.
 | :---------------------- | --------: | -------------: | -------------------: |
 | Linear Regression       |    70,542 |         72,763 |                  0.0 |
 | Optimized kNN           |    60,158 |         91,772 |                  0.6 |
-| Optimized SVM Regressor |    84,757 |         85,335 |                  1.7 |
+| Optimized SVM Regressor |    84,757 |         85,335 |                  1.3 |
 
 Table 2: Performance of optimized models
 
