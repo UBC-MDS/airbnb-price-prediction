@@ -27,6 +27,7 @@ There are two ways to reproduce this project.
 `docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnbprice:v2.0 make -C '/home/airbnb_price' all`
 
 - Use the following command to clean up the analysis:
+
 `docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/airbnb_price moniquewong/airbnbprice:v2.0 make -C '/home/airbnb_price' clean`
 
 
