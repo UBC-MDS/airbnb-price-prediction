@@ -116,7 +116,7 @@ variables.
 
 <div class="figure">
 
-<img src="output/neighborhoods.png" alt="Figure 1: Number of properties by nightly price and by neighborhood" width="100%" height="100%" />
+<img src="/home/airbnb_price/output/neighborhoods.png" alt="Figure 1: Number of properties by nightly price and by neighborhood" width="100%" height="100%" />
 
 <p class="caption">
 
@@ -151,7 +151,7 @@ almost consistently up to $
 
 <div class="figure">
 
-<img src="output/price_by_property_type.png" alt="Figure 3: Number of properties by price and property type" width="60%" height="60%" />
+<img src="/home/airbnb_price/output/price_by_property_type.png" alt="Figure 3: Number of properties by price and property type" width="60%" height="60%" />
 
 <p class="caption">
 
@@ -192,9 +192,9 @@ techniques.
 | Models                            | Train MSE | Validation MSE | Computation time (s) |
 | :-------------------------------- | --------: | -------------: | -------------------: |
 | Linear Regression                 |    70,542 |         72,763 |                  0.0 |
-| kNN Regressor                     |    62,294 |         85,796 |                  1.0 |
-| Support Vector Machine Regression |    77,553 |         78,726 |                  1.8 |
-| Random Forest Regressor           |    17,894 |        135,048 |                  5.3 |
+| kNN Regressor                     |    62,294 |         85,796 |                  0.7 |
+| Support Vector Machine Regression |    77,553 |         78,726 |                  2.0 |
+| Random Forest Regressor           |    18,037 |        132,636 |                  5.2 |
 
 Table 1: Baseline performance for four models
 
@@ -215,8 +215,8 @@ regressor.
 | Models                  | Train MSE | Validation MSE | Computation time (s) |
 | :---------------------- | --------: | -------------: | -------------------: |
 | Linear Regression       |    70,542 |         72,763 |                  0.0 |
-| Optimized kNN           |    60,158 |         91,772 |                  2.7 |
-| Optimized SVM Regressor |    84,757 |         85,335 |                  1.7 |
+| Optimized kNN           |    61,833 |         77,989 |                  0.7 |
+| Optimized SVM Regressor |    84,757 |         85,335 |                  2.0 |
 
 Table 2: Performance of optimized models
 
@@ -234,7 +234,7 @@ prices.
 
 <div class="figure">
 
-<img src="output/residual_plot.png" alt="Figure 4: Residuals by true price for linear regression model" width="60%" height="60%" />
+<img src="/home/airbnb_price/output/residual_plot.png" alt="Figure 4: Residuals by true price for linear regression model" width="60%" height="60%" />
 
 <p class="caption">
 
